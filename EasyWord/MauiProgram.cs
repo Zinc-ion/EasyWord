@@ -16,9 +16,11 @@ public static class MauiProgram
 			});
 
 		builder.Services.AddMauiBlazorWebView();
+        // CodeComment
+        builder.Services.AddBootstrapBlazor();
 
 #if DEBUG
-		builder.Services.AddBlazorWebViewDeveloperTools();
+        builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
 

@@ -5,7 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
     <title>EasyWord</title>
     <base href="/" />
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
+    <!-- <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" /> -->
+    <!-- 需引用 BootstrapBlazor.FontAwesome 包 !-->
+    <link href="_content/BootstrapBlazor.FontAwesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="_content/BootstrapBlazor/css/bootstrap.blazor.bundle.min.css" rel="stylesheet">
+
     <link href="css/app.css" rel="stylesheet" />
     <link href="EasyWord.styles.css" rel="stylesheet" />
 </head>
@@ -21,7 +25,8 @@
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
     </div>
-
+	<!-- 增加代码 !-->
+	<script src="_content/BootstrapBlazor/js/bootstrap.blazor.bundle.min.js"></script>
     <script src="_framework/blazor.webview.js" autostart="false"></script>
 
 </body>
