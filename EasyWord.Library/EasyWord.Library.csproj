@@ -29,4 +29,8 @@
     <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.6" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
+
 </Project>

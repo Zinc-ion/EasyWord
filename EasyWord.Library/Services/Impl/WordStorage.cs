@@ -1,4 +1,8 @@
-﻿namespace EasyWord.Library.Services.Impl;
+﻿using System.Linq.Expressions;
+using EasyWord.Library.Models;
+using SQLite;
+
+namespace EasyWord.Library.Services.Impl;
 
 public class WordStorage : IWordStorage
 {
@@ -9,6 +13,10 @@ public class WordStorage : IWordStorage
         Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder
                 .LocalApplicationData), DbName);
+    //建立数据库连接
+    private SQLiteAsyncConnection _connection;
+    private SQLiteAsyncConnection Connection =>
+        _connection ??= new SQLiteAsyncConnection(WordDbPath);
 
     //键值对存储
     private readonly IPreferenceStorage _preferenceStorage;
@@ -22,6 +30,9 @@ public class WordStorage : IWordStorage
     public bool IsInitialized =>
         _preferenceStorage.Get(WordStorageConstant.DbVersionKey, 0) ==
         WordStorageConstant.Version;
+
+
+
 
     //异步初始化数据库
     public async Task InitializeAsync()
@@ -39,6 +50,12 @@ public class WordStorage : IWordStorage
         _preferenceStorage.Set(WordStorageConstant.DbVersionKey,
             WordStorageConstant.Version);
     }
+
+
+    //实现返回CET4_1中的take数量的未背诵单词
+    public async Task<IEnumerable<Word>> GetFromCET4_1Async(int take) =>
+        await Connection.Table<Word>().Where(p => p.status == 0).Take(take).ToListAsync();
+    
 }
 
 //数据库相关常量，防止直接拼写打错字
