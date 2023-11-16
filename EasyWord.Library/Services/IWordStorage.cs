@@ -9,6 +9,6 @@ public interface IWordStorage
 
     Task InitializeAsync();
 
-    //查找单词
+    //CET4_1查找take个单词
     Task<IEnumerable<Word>> GetFromCET4_1Async(int take);
 }

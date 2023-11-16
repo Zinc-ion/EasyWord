@@ -1,0 +1,22 @@
+﻿@page "/todayWords"
+@using Sve.Blazor.InfiniteScroll.Components
+
+@inject IWordStorage _wordStorage
+
+<InfiniteScroll ObserverTargetId="observerTarget"
+                ObservableTargetReached="_ => LoadMoreAsync()">
+    @foreach (var word in _words)
+    {
+        <div>
+            <Card>
+                <BodyTemplate>
+                    <span style="font-weight: bold; color: #0078d4">@word.headWord</span>
+                    <div class="shim-2xs"></div>
+                    @word.tranCN @word.pos
+                    <div class="shim-2xs"></div>
+                </BodyTemplate>
+            </Card>
+        </div>
+    }
+    <div id="observerTarget"></div>
+</InfiniteScroll>

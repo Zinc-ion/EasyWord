@@ -1,5 +1,8 @@
 ﻿using Microsoft.Extensions.Logging;
 using EasyWord.Data;
+using EasyWord.Library.Services;
+using EasyWord.Library.Services.Impl;
+using EasyWord.Services;
 
 namespace EasyWord;
 
@@ -25,7 +28,9 @@ public static class MauiProgram
 #endif
 
 		builder.Services.AddSingleton<WeatherForecastService>();
+        builder.Services.AddScoped<IWordStorage, WordStorage>();
+        builder.Services.AddScoped<IPreferenceStorage, PreferenceStorage>();
 
-		return builder.Build();
+        return builder.Build();
 	}
 }

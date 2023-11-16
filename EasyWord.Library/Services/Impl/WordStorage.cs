@@ -55,6 +55,9 @@ public class WordStorage : IWordStorage
     //实现返回CET4_1中的take数量的未背诵单词
     public async Task<IEnumerable<Word>> GetFromCET4_1Async(int take) =>
         await Connection.Table<Word>().Where(p => p.status == 0).Take(take).ToListAsync();
+
+    //关闭数据库连接
+    public async Task CloseAsync() => await Connection.CloseAsync(); 
     
 }
 

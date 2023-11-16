@@ -5,9 +5,11 @@ using Moq;
 namespace EasyWord.Test.Helpers;
 
 public class WordStorageHelper {
+    //删除数据库
     public static void RemoveDatabaseFile() =>
         File.Delete(WordStorage.WordDbPath);
 
+    //初始化数据库
     public static async Task<WordStorage> GetInitializedPoetryStorage() {
         var preferenceStorageMock = new Mock<IPreferenceStorage>();
         preferenceStorageMock.Setup(p =>
