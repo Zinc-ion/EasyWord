@@ -2,20 +2,46 @@
 
 public class WordStorage : IWordStorage
 {
+    //数据库名
+    public const string DbName = "inami.db";
+    //数据库路径
+    public static readonly string WordDbPath =
+        Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder
+                .LocalApplicationData), DbName);
+
+    //键值对存储
+    private readonly IPreferenceStorage _preferenceStorage;
+    //依赖注入键值对存储接口
+    public WordStorage(IPreferenceStorage preferenceStorage)
+    {
+        _preferenceStorage = preferenceStorage;
+    }
+
     // TestIsInitialized
     public bool IsInitialized =>
         _preferenceStorage.Get(WordStorageConstant.DbVersionKey, 0) ==
         WordStorageConstant.Version;
 
-    private readonly IPreferenceStorage _preferenceStorage;
-
-    public WordStorage(IPreferenceStorage preferenceStorage)
+    //异步初始化数据库
+    public async Task InitializeAsync()
     {
-        _preferenceStorage = preferenceStorage;
+        //打开文件流
+        await using var dbFileStream =
+            new FileStream(WordDbPath, FileMode.OpenOrCreate);
+        //打开资源流
+        await using var dbAssetStream =
+            typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
+        //copy流
+        await dbAssetStream.CopyToAsync(dbFileStream);
+
+        //存储版本号
+        _preferenceStorage.Set(WordStorageConstant.DbVersionKey,
+            WordStorageConstant.Version);
     }
 }
 
-
+//数据库相关常量，防止直接拼写打错字
 public static class WordStorageConstant
 {
     public const string DbVersionKey =

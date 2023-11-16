@@ -3,4 +3,6 @@
 public interface IWordStorage
 {
     bool IsInitialized { get; }
+
+    Task InitializeAsync();
 }
