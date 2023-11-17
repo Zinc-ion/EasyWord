@@ -28,6 +28,17 @@ public partial class TodayWords
         await LoadMoreAsync();
     }
 
+    private async void KnowWord(int wordRank)
+    {
+        await _wordStorage.KnowWord(wordRank);
+        StateHasChanged();
+    }
+
+    private async void UnknownWord(int wordRank)
+    {
+        await _wordStorage.UnknownWord(wordRank);
+        StateHasChanged();
+    }
 
     private async Task LoadMoreAsync()
     {
