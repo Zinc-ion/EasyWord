@@ -1,4 +1,5 @@
 ﻿@page "/counter"
+@using System.Speech.Synthesis
 
 <h1>Counter</h1>
 
@@ -15,5 +16,24 @@
     private void IncrementCount()
     {
         currentCount++;
+
+	// 初始化SpeechSynthesizer.
+	    SpeechSynthesizer synth = new SpeechSynthesizer();
+
+	//设置为本机中文化为英文的语音
+	    synth.SelectVoice(currentCount % 2 == 0 ? "Microsoft Zira Desktop" : "Microsoft David Desktop");
+
+
+	// 设置输出
+	    synth.SetOutputToDefaultAudioDevice();
+
+	// 输出
+	    synth.Speak("now the current count is " + currentCount);
     }
+
+
+
+	
+
+
 }
