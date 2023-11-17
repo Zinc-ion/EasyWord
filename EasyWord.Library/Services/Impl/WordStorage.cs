@@ -57,8 +57,22 @@ public class WordStorage : IWordStorage
         await Connection.Table<Word>().Where(p => p.status == 0).Take(take).ToListAsync();
 
     //关闭数据库连接
-    public async Task CloseAsync() => await Connection.CloseAsync(); 
-    
+    public async Task CloseAsync() => await Connection.CloseAsync();
+
+
+    public async Task<IEnumerable<Book>> GetBooksAsync() =>
+        await Connection.Table<Book>().ToListAsync();
+
+
+    public Task KnowWord(int wordRank)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task UnknownWord(int wordRank)
+    {
+        throw new NotImplementedException();
+    }
 }
 
 //数据库相关常量，防止直接拼写打错字
