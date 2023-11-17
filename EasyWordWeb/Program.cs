@@ -10,14 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
-
-
 // 添加本行代码
 builder.Services.AddBootstrapBlazor();
+builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<IWordStorage, WordStorage>();
 builder.Services.AddScoped<IPreferenceStorage, PreferenceStorage>();
-
 
 var app = builder.Build();
 
