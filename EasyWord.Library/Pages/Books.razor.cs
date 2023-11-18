@@ -14,8 +14,11 @@ public partial class Books
             return;
         }
 
-        // TODO 测试代码
-        await _wordStorage.InitializeAsync();
+        if (!_wordStorage.IsInitialized)
+        {
+            await _wordStorage.InitializeAsync();
+        }
+        
 
         var words = await _wordStorage.GetBooksAsync();
         _books.AddRange(words);
