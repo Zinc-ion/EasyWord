@@ -1,9 +1,10 @@
 ﻿namespace EasyWord.Library.Services;
 
+//导航Service，用于页面跳转 xj实现
 public interface INavigationService {
     void NavigateTo(string uri);
 
-    // void NavigateTo(string uri, object parameter);
+    void NavigateTo(string uri, object parameter);
 }
 
 //导航页面常量

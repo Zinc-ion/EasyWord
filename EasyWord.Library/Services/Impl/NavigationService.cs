@@ -2,6 +2,7 @@
 
 namespace EasyWord.Library.Services.Impl;
 
+//导航Service，用于页面跳转 xj实现
 public class NavigationService : INavigationService {
     private readonly NavigationManager _navigationManager;
     private readonly IParcelBoxService _parcelBoxService;
@@ -14,8 +15,8 @@ public class NavigationService : INavigationService {
 
     public void NavigateTo(string uri) => _navigationManager.NavigateTo(uri);
 
-    // public void NavigateTo(string uri, object parameter) {
-    //     var token = _parcelBoxService.Put(parameter);
-    //     _navigationManager.NavigateTo($"{uri}/{token}");
-    // }
+    public void NavigateTo(string uri, object parameter) {
+        var token = _parcelBoxService.Put(parameter);
+        _navigationManager.NavigateTo($"{uri}/{token}");
+    }
 }

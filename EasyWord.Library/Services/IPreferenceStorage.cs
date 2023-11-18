@@ -1,5 +1,6 @@
 ﻿namespace EasyWord.Library.Services;
 
+//键值对存储 xj实现
 public interface IPreferenceStorage {
     void Set(string key, int value);
 
