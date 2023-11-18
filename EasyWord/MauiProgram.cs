@@ -30,6 +30,8 @@ public static class MauiProgram
 		builder.Services.AddSingleton<WeatherForecastService>();
         builder.Services.AddScoped<IWordStorage, WordStorage>();
         builder.Services.AddScoped<IPreferenceStorage, PreferenceStorage>();
+        builder.Services.AddScoped<INavigationService, NavigationService>();
+        builder.Services.AddScoped<IParcelBoxService, ParcelBoxService>();
 
         return builder.Build();
 	}

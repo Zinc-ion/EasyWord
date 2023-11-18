@@ -22,9 +22,6 @@ public partial class TodayWords
             return;
         }
 
-        // TODO 测试代码
-        await _wordStorage.InitializeAsync();
-
         await LoadMoreAsync();
     }
 

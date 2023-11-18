@@ -32,8 +32,6 @@ public class WordStorage : IWordStorage
         WordStorageConstant.Version;
 
 
-
-
     //异步初始化数据库
     public async Task InitializeAsync()
     {
