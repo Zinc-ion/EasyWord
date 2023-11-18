@@ -1,0 +1,16 @@
+﻿@page "/"
+@inject IWordStorage _wordStorage
+@inject INavigationService _navigationService
+
+@code {
+	// 页面职责单一化，此页面用于判断数据库是否初始化
+    protected override void OnAfterRender(bool firstRender)
+    {
+	    if (!firstRender) {
+            return;
+        }
+
+        _navigationService.NavigateTo(!_wordStorage.IsInitialized ? NavigationServiceConstants.InitializationPage : NavigationServiceConstants.TodayWordsPage);
+    }
+
+}

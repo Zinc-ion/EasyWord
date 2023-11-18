@@ -14,11 +14,6 @@ public partial class Books
             return;
         }
 
-        if (!_wordStorage.IsInitialized)
-        {
-            await _wordStorage.InitializeAsync();
-        }
-        
 
         var words = await _wordStorage.GetBooksAsync();
         _books.AddRange(words);

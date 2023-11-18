@@ -1,5 +1,5 @@
 ﻿@page "/initialization"
-@inject IWordStorage _poetryStorage
+@inject IWordStorage _wordStorage
 @inject INavigationService _navigationService
 
 <div class="text-center">
@@ -10,14 +10,15 @@
 </div>
 
 @code {
-
+	// 页面职责单一化，此页面用初始化数据库
     protected override async Task OnAfterRenderAsync(bool firstRender) {
         if (!firstRender) {
             return;
         }
 
-        if (!_poetryStorage.IsInitialized) {
-            await _poetryStorage.InitializeAsync();
+        if (!_wordStorage.IsInitialized)
+        {
+            await _wordStorage.InitializeAsync();
         }
 
        

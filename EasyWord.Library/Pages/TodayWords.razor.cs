@@ -22,11 +22,6 @@ public partial class TodayWords
             return;
         }
 
-        if (!_wordStorage.IsInitialized)
-        {
-            await _wordStorage.InitializeAsync();
-        }
-
         await LoadMoreAsync();
     }
 
