@@ -53,8 +53,8 @@ public class WordStorage : IWordStorage
 
 
     //实现返回CET4_1中的take数量的未背诵单词
-    public async Task<IEnumerable<Word>> GetFromCET4_1Async(int take) =>
-        await Connection.Table<Word>().Where(p => p.status == 0).Take(take).ToListAsync();
+    public async Task<IEnumerable<Word>> GetFromCET4_1Async(int take,int index) =>
+        await Connection.Table<Word>().Where(p => p.status == 0).Skip(index).Take(take).ToListAsync();
 
     //关闭数据库连接
     public async Task CloseAsync() => await Connection.CloseAsync();
@@ -64,14 +64,27 @@ public class WordStorage : IWordStorage
         await Connection.Table<Book>().ToListAsync();
 
 
-    public Task KnowWord(int wordRank)
+    public async Task KnowWord(int wordRank)
     {
-        throw new NotImplementedException();
+        Word word = await Connection.Table<Word>()
+            .Where(p => p.wordRank == wordRank)
+            .FirstOrDefaultAsync();
+        Console.WriteLine(word);
+        if (word != null)
+        {
+            word.status = 1;
+            await Connection.UpdateAsync(word);
+        }
     }
 
-    public Task UnknownWord(int wordRank)
+    public async Task UnknownWord(int wordRank)
     {
-        throw new NotImplementedException();
+        var word = await Connection.Table<Word>().Where(p => p.wordRank == wordRank).FirstOrDefaultAsync();
+        if (word != null)
+        {
+            word.status = -1;
+            await Connection.UpdateAsync(word);
+        }
     }
 }
 

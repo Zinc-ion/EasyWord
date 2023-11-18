@@ -1,8 +1,11 @@
-﻿namespace EasyWord.Library.Models;
+﻿using SQLite;
+
+namespace EasyWord.Library.Models;
 
 [SQLite.Table("CET4_1")]
 public class Word
 {
+    [PrimaryKey]
     [SQLite.Column("wordRank")]
     public int wordRank { get; set; }
 
