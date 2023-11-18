@@ -15,16 +15,10 @@
         if (!firstRender) {
             return;
         }
-
         if (!_wordStorage.IsInitialized)
         {
             await _wordStorage.InitializeAsync();
         }
-
-       
-
-        await Task.Delay(1000);
-
         _navigationService.NavigateTo(NavigationServiceConstants.TodayWordsPage);
     }
 
