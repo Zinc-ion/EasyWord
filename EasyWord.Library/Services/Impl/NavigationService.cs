@@ -14,8 +14,8 @@ public class NavigationService : INavigationService {
 
     public void NavigateTo(string uri) => _navigationManager.NavigateTo(uri);
 
-    public void NavigateTo(string uri, object parameter) {
-        var token = _parcelBoxService.Put(parameter);
-        _navigationManager.NavigateTo($"{uri}/{token}");
-    }
+    // public void NavigateTo(string uri, object parameter) {
+    //     var token = _parcelBoxService.Put(parameter);
+    //     _navigationManager.NavigateTo($"{uri}/{token}");
+    // }
 }
