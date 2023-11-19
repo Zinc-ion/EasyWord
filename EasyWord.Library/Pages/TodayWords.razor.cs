@@ -15,6 +15,7 @@ public partial class TodayWords
 
     private List<Word> _words = new();
 
+
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender)
@@ -25,21 +26,21 @@ public partial class TodayWords
         await LoadMoreAsync();
     }
 
-    //认识
+    //认识 zyy实现
     private async void KnowWord(int wordRank)
     {
         await _wordStorage.KnowWord(wordRank);
         StateHasChanged();
     }
 
-    //不认识
+    //不认识单词 zyy实现
     private async void UnknownWord(int wordRank)
     {
         await _wordStorage.UnknownWord(wordRank);
         StateHasChanged();
     }
 
-    //无限滚动
+    //无限滚动 zyy实现
     private async Task LoadMoreAsync()
     {
         var words = await _wordStorage.GetFromCET4_1Async(pageSize,_words.Count);
