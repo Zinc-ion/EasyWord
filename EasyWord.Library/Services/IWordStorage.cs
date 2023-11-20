@@ -12,6 +12,9 @@ public interface IWordStorage
     //CET4_1查找take个单词
     Task<IEnumerable<Word>> GetFromCET4_1Async(int take,int index);
 
+    Task<IEnumerable<Word>> GetWordsAsync(
+        Expression<Func<Word, bool>> where, int skip, int take);
+
     //查找单词书
     Task<IEnumerable<Book>> GetBooksAsync();
 

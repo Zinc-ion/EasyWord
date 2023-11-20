@@ -1,21 +1,15 @@
 ﻿using EasyWord.Library.Models;
-using EasyWord.Library.Services;
 using System.Linq.Expressions;
-using System.Net.Sockets;
 
 namespace EasyWord.Library.Pages;
 
 public partial class TodayWords
 {
-    public const string Loading = "正在载入";
-    public const string NoResult = "没有满足条件的结果";
-    public const string NoMoreResult = "没有更过结果";
-    private string _status = string.Empty;
-
-    public const int pageSize = 300;
-
     private List<Word> _words = new();
 
+    private int pageSize = 5;
+
+    private Expression<Func<Word, bool>> _where = p => p.status == 0;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -23,9 +17,30 @@ public partial class TodayWords
         {
             return;
         }
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
+    }
 
-        await _wordStorage.InitializeAsync();
-        await LoadMoreAsync();
+
+    private async void IncrementPageSize()
+    {
+        ++pageSize;
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
+
+    }
+    private async void DecrementPageSize()
+    {
+        --pageSize;
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
+
     }
 
     //认识
@@ -44,22 +59,5 @@ public partial class TodayWords
         return 1;
     }
 
-    //无限滚动
-    public async Task LoadMoreAsync()
-    {
-        _status = Loading;
-        var words = await _wordStorage.GetFromCET4_1Async(pageSize,_words.Count);
-        _status = string.Empty;
-        _words.AddRange(words);
 
-        if (words.Count() < pageSize)
-        {
-            _status = NoMoreResult;
-        }
-
-        if (!words.Any() && _words.Count == 0)
-        {
-            _status = NoResult;
-        }
-    }
 }

@@ -12,5 +12,7 @@ public static class NavigationServiceConstants {
     public const string BooksPage = "/books";
     public const string SentenceGenerationPage = "/sentenceGeneration";
     public const string TodayWordsPage = "/todayWords";
+    public const string Cet4Words1Page = "cet4_1Words";
     public const string InitializationPage = "/initialization";
+    public const string DetailPage = "/detail";
 }
