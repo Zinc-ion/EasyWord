@@ -67,4 +67,22 @@ public class WordStorageTest : IDisposable
         await wordStorage.CloseAsync();
     }
 
+
+    [Fact]
+    public async Task KnowWord_default()
+    {
+        var wordStorage = await WordStorageHelper.GetInitializedPoetryStorage();
+        var result = await wordStorage.KnowWord(2);
+        Assert.Equal(1,result);
+        await wordStorage.CloseAsync();
+    }
+
+    [Fact]
+    public async Task UnknownWord_default()
+    {
+        var wordStorage = await WordStorageHelper.GetInitializedPoetryStorage();
+        var result = await wordStorage.UnknownWord(2);
+        Assert.Equal(1, result);
+        await wordStorage.CloseAsync();
+    }
 }

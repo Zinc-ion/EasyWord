@@ -62,7 +62,7 @@ public class WordStorage : IWordStorage
         await Connection.Table<Book>().ToListAsync();
 
 
-    public async Task KnowWord(int wordRank)
+    public async Task<int> KnowWord(int wordRank)
     {
         Word word = await Connection.Table<Word>()
             .Where(p => p.wordRank == wordRank)
@@ -72,17 +72,23 @@ public class WordStorage : IWordStorage
         {
             word.status = 1;
             await Connection.UpdateAsync(word);
+            return 1;
         }
+        return 0;
     }
 
-    public async Task UnknownWord(int wordRank)
+    public async Task<int> UnknownWord(int wordRank)
     {
-        var word = await Connection.Table<Word>().Where(p => p.wordRank == wordRank).FirstOrDefaultAsync();
+        var word = await Connection.Table<Word>()
+            .Where(p => p.wordRank == wordRank)
+            .FirstOrDefaultAsync();
         if (word != null)
         {
             word.status = -1;
             await Connection.UpdateAsync(word);
+            return 1;
         }
+        return 0;
     }
 }
 

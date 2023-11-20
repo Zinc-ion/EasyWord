@@ -16,7 +16,7 @@ public interface IWordStorage
     Task<IEnumerable<Book>> GetBooksAsync();
 
     //认识单词
-    Task KnowWord(int wordRank);
-    Task UnknownWord(int wordRank);
+    Task<int> KnowWord(int wordRank);
+    Task<int> UnknownWord(int wordRank);
 
 }

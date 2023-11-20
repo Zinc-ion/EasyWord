@@ -4,7 +4,8 @@ namespace EasyWord.Services;
 
 //此处实现PreferenceStorage键值对存储，只有MAUI中有，所以只能在此实现，其他项目调接口使用
 public class PreferenceStorage : IPreferenceStorage {
-    public void Set(string key, int value) => Preferences.Set(key, value);
+    public void Set(string key, int value) =>
+        Preferences.Set(key, value);
 
     public int Get(string key, int defaultValue) =>
         Preferences.Get(key, defaultValue);
