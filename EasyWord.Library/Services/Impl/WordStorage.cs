@@ -6,33 +6,33 @@ namespace EasyWord.Library.Services.Impl;
 
 public class WordStorage : IWordStorage
 {
-    //数据库名
+    //数据库名 xj实现
     public const string DbName = "inami.db";
-    //数据库路径
+    //数据库路径  xj实现
     public static readonly string WordDbPath =
         Path.Combine(
             Environment.GetFolderPath(Environment.SpecialFolder
                 .LocalApplicationData), DbName);
-    //建立数据库连接
+    //建立数据库连接 xj实现
     private SQLiteAsyncConnection _connection;
     private SQLiteAsyncConnection Connection =>
         _connection ??= new SQLiteAsyncConnection(WordDbPath);
 
-    //键值对存储
+    //键值对存储 xj实现
     private readonly IPreferenceStorage _preferenceStorage;
-    //依赖注入键值对存储接口
+    //依赖注入键值对存储接口 xj实现
     public WordStorage(IPreferenceStorage preferenceStorage)
     {
         _preferenceStorage = preferenceStorage;
     }
 
-    // TestIsInitialized
+    // TestIsInitialized xj实现
     public bool IsInitialized =>
         _preferenceStorage.Get(WordStorageConstant.DbVersionKey, 0) ==
         WordStorageConstant.Version;
 
 
-    //异步初始化数据库
+    //异步初始化数据库 xj实现
     public async Task InitializeAsync()
     {
         //打开文件流
@@ -92,7 +92,7 @@ public class WordStorage : IWordStorage
     }
 }
 
-//数据库相关常量，防止直接拼写打错字
+//数据库相关常量，防止直接拼写打错字 xj实现
 public static class WordStorageConstant
 {
     public const string DbVersionKey =

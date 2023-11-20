@@ -1,5 +1,6 @@
 ﻿namespace EasyWord.Library.Services.Impl;
 
+//存储服务 xj实现
 public class ParcelBoxService : IParcelBoxService {
     private readonly Dictionary<string, object> _parcelBox = new();
 

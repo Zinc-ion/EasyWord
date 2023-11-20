@@ -7,14 +7,15 @@ namespace EasyWord.Test.Services;
 
 public class WordStorageTest : IDisposable
 {
-    //将清理文件的方法放到构造函数中，在每次测试前执行
+    //将清理文件的方法放到构造函数中，在每次测试前执行 xj实现
     public WordStorageTest() => WordStorageHelper.RemoveDatabaseFile();
-    //将清理文件的方法放到析构函数中，在每次测试后执行
+    //将清理文件的方法放到析构函数中，在每次测试后执行 xj实现
     public void Dispose() => WordStorageHelper.RemoveDatabaseFile();
 
     [Fact]
     public void IsInitialized_Initialized()
     {
+        // xj实现
         var preferenceStorageMock = new Mock<IPreferenceStorage>();
         preferenceStorageMock
             .Setup(p => p.Get(WordStorageConstant.DbVersionKey, 0))
@@ -27,6 +28,7 @@ public class WordStorageTest : IDisposable
     [Fact]
     public void IsInitialized_NotInitialized()
     {
+        // xj实现
         var preferenceStorageMock = new Mock<IPreferenceStorage>();
         preferenceStorageMock
             .Setup(p => p.Get(WordStorageConstant.DbVersionKey, 0))
@@ -39,7 +41,7 @@ public class WordStorageTest : IDisposable
     [Fact]
     public async Task InitializeAsync_Default()
     {
-        //使用Mock来new出键值对存储服务
+        //使用Mock来new出键值对存储服务 xj实现
         var preferenceStorageMock = new Mock<IPreferenceStorage>();
         var mockPreferenceStorage = preferenceStorageMock.Object;
 
