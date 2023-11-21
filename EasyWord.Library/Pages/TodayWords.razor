@@ -1,5 +1,5 @@
 ﻿@page "/todayWords"
-
+@inject INavigationService _navigationService
 
 @inject IWordStorage _wordStorage
 
@@ -12,22 +12,21 @@
     <button class="btn btn-primary" @onclick="IncrementPageSize">+</button>
 
 </div>
-
-@foreach (var word in _words)
-{
-    <div>
-        <Card>
-            <BodyTemplate>
+<Collapse>
+    <CollapseItems>
+    @foreach (var word in _words)
+    {
+        <CollapseItem Text=@word.headWord>
                 <span style="font-weight: bold; color: #0078d4">@word.headWord</span>
                 <div class="shim-2xs"></div>
                 @word.tranCN @word.pos
                 <div class="shim-2xs"></div>
-                <div class="btn-group" role="group" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
+                <div class="btn-group" role="group">
                     <Button Size="Size.Small" OnClick="() => KnowWord(word.wordRank)" Color="Color.Success">我认识</Button>
                     <Button Size="Size.Small" OnClick="() => UnknownWord(word.wordRank)" Color="Color.Primary">我不认识</Button>
                 </div>
-            </BodyTemplate>
-        </Card>
-    </div>
-}
-
+                <Button Size="Size.Small" OnClick="() => GoToDetail(word.wordRank)" Color="Color.Primary">走了</Button>
+        </CollapseItem>
+    }
+    </CollapseItems>
+</Collapse>

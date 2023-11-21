@@ -1,4 +1,6 @@
-﻿using EasyWord.Library.Models;
+﻿using BootstrapBlazor.Components;
+using EasyWord.Library.Models;
+using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
 
 namespace EasyWord.Library.Pages;
@@ -60,4 +62,8 @@ public partial class TodayWords
     }
 
 
+    private void GoToDetail(int wordRank)
+    {
+        _navigationService.NavigateTo("/wordDetail/wordRank");
+    }
 }
