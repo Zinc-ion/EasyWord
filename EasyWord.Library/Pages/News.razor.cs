@@ -1,8 +1,6 @@
 ﻿using EasyWord.Library.Services;
 namespace EasyWord.Library.Pages;
-using NewsAPI;
-using NewsAPI.Models;
-using NewsAPI.Constants;
+
 using System;
 public partial class News
 {
