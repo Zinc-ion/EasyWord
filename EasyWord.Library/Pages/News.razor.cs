@@ -1,25 +1,20 @@
-﻿using EasyWord.Library.Services;
+﻿using EasyWord.Library.Models;
+using EasyWord.Library.Services;
+using EasyWord.Library.Services.Impl;
+
 namespace EasyWord.Library.Pages;
+
 
 using System;
 public partial class News
 {
-    //private ArticlesResult articles = GetArticlesAsync();
 
-    /**
-    public static ArticlesResult GetArticlesAsync()
+    private TodayArticle _article = new TodayArticle();
+
+    public async Task<TodayArticle> GetNewsAsync()
     {
-        // init with your API key
-        var newsApiClient = new NewsApiClient("72e2a175fb9d4e4b87b21186be600d0d");
-        var articlesResponse = newsApiClient.GetEverything(new EverythingRequest
-        {
-            Q = "Apple",
-            SortBy = SortBys.Popularity,
-            Language = Languages.EN,
-            From = new DateTime(2018, 1, 25),
-            PageSize = 1,
-            Page = 1
-        });
-        return articlesResponse.Status == Statuses.Ok ? articlesResponse : new ArticlesResult();
-    }**/
+        _article = await _newsService.GetNewsAsync();
+        return _article;
+    }
+
 }

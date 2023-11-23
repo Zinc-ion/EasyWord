@@ -20,14 +20,14 @@ public class NewsService : INewsService
     public async Task<TodayArticle> GetNewsAsync()
     {
         using var httpClient = new HttpClient();
-        httpClient.DefaultRequestHeaders.Add("apiKey", "72e2a175fb9d4e4b87b21186be600d0d");
+        //httpClient.DefaultRequestHeaders.Add("apiKey", "72e2a175fb9d4e4b87b21186be600d0d");
 
         HttpResponseMessage response;
 
         try
         {
             response =
-                await httpClient.GetAsync("https://newsapi.org/v2/everything?q=Apple&sortBy=popularity");
+                await httpClient.GetAsync("https://newsapi.org/v2/everything?q=Apple&sortBy=popularity&apiKey=72e2a175fb9d4e4b87b21186be600d0d");
             response.EnsureSuccessStatusCode();
         }
         catch (Exception e)

@@ -1,6 +1,17 @@
 ﻿@page "/news"
+@inject INewsService _newsService
 
-<h1>News</h1>
+<Button Icon="fa-solid fa-floppy-disk" OnClick="() => GetNewsAsync()" Text="提交" />
 
+<div>
+    <Card>
+        <BodyTemplate>
+            <span style="font-weight: bold; color: #0078d4">@_article.Title</span>
+            <div class="shim-2xs"></div>
+            @_article.Author @_article.Name
+            <div class="shim-2xs"></div>
+        </BodyTemplate>
+    </Card>
+</div>
 
 
