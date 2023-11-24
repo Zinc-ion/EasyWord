@@ -1,3 +1,14 @@
-﻿@page "/wordDetail/wordRank"
+﻿@page "/wordDetail/{wordRank}"
+@inject IWordStorage _wordStorage
 
-<h1>@WordRank</h1>
+<div>
+    <CollapseItem Text=@_word.headWord>
+        <div>
+            <span style="font-weight: bold; color: #0078d4">@_word.headWord</span>
+            <div class="shim-2xs"></div>
+            @_word.tranCN @_word.pos
+            <div class="shim-2xs"></div>
+        </div>
+    </CollapseItem>
+</div>
+

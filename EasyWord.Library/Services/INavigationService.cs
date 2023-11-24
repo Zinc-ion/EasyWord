@@ -15,4 +15,6 @@ public static class NavigationServiceConstants {
     public const string Cet4Words1Page = "cet4_1Words";
     public const string InitializationPage = "/initialization";
     public const string DetailPage = "/detail";
+    public const string WordDetail = "/wordDetail";
+
 }

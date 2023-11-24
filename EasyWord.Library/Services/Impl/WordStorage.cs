@@ -57,6 +57,9 @@ public class WordStorage : IWordStorage
     public async Task<IEnumerable<Word>> GetWordsAsync(Expression<Func<Word, bool>> where, int skip, int take) =>
         await Connection.Table<Word>().Where(where).Skip(skip).Take(take).ToListAsync();
 
+    public async Task<Word> GetWordAsync(int wordRank) =>
+        await Connection.Table<Word>().FirstOrDefaultAsync(p => p.wordRank == wordRank);
+
 
     //关闭数据库连接
     public async Task CloseAsync() => await Connection.CloseAsync();

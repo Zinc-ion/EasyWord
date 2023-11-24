@@ -2,6 +2,7 @@
 using EasyWord.Library.Models;
 using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
+using EasyWord.Library.Services;
 
 namespace EasyWord.Library.Pages;
 
@@ -66,4 +67,8 @@ public partial class TodayWords
     {
         _navigationService.NavigateTo("/wordDetail/wordRank");
     }
+
+    private void OnClick(Word word) =>
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.WordDetail}/{word.wordRank}");
 }

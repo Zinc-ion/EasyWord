@@ -7,7 +7,7 @@ public class NewsService : INewsService
 {
     private readonly IAlertService _alertService;
 
-    private const string Server = "NewsApi";
+    private const string Server = "NewsApi服务器";
 
 
     //构造函数
