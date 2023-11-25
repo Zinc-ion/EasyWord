@@ -30,8 +30,4 @@
     <PackageReference Include="Sve.Blazor.InfiniteScroll" Version="1.0.0-alpha" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>

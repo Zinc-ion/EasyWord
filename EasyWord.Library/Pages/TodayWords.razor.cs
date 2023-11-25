@@ -1,20 +1,17 @@
-﻿using EasyWord.Library.Models;
+﻿using BootstrapBlazor.Components;
+using EasyWord.Library.Models;
+using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
-using System.Net.Sockets;
 
 namespace EasyWord.Library.Pages;
 
 public partial class TodayWords
 {
-    public const string Loading = "正在载入";
-    public const string NoResult = "没有满足条件的结果";
-    public const string NoMoreResult = "没有更过结果";
-    private string _status = string.Empty;
-
-    public const int pageSize = 20;
-
     private List<Word> _words = new();
 
+    private int pageSize = 5;
+
+    private Expression<Func<Word, bool>> _where = p => p.status == 0;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -22,28 +19,51 @@ public partial class TodayWords
         {
             return;
         }
-
-        await LoadMoreAsync();
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
     }
 
-    //认识 zyy实现
-    private async void KnowWord(int wordRank)
+
+    private async void IncrementPageSize()
+    {
+        ++pageSize;
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
+
+    }
+    private async void DecrementPageSize()
+    {
+        --pageSize;
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
+
+    }
+
+    //认识
+    public async Task<int> KnowWord(int wordRank)
     {
         await _wordStorage.KnowWord(wordRank);
-        StateHasChanged();
+
+        return 1;
     }
 
-    //不认识单词 zyy实现
-    private async void UnknownWord(int wordRank)
+    //不认识单词
+    public async Task<int> UnknownWord(int wordRank)
     {
         await _wordStorage.UnknownWord(wordRank);
-        StateHasChanged();
+
+        return 1;
     }
 
-    //无限滚动 zyy实现
-    private async Task LoadMoreAsync()
+
+    private void GoToDetail(int wordRank)
     {
-        var words = await _wordStorage.GetFromCET4_1Async(pageSize,_words.Count);
-        _words.AddRange(words);
+        _navigationService.NavigateTo("/wordDetail/wordRank");
     }
 }

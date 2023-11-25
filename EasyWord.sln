@@ -3,12 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyWord", "EasyWord\EasyWord.csproj", "{9B6978FF-7C2F-4585-BC95-C3423FDE5644}"
+	ProjectSection(ProjectDependencies) = postProject
+		{8E094ACB-2AD5-4491-8F7A-2C8F3E8C2FC3} = {8E094ACB-2AD5-4491-8F7A-2C8F3E8C2FC3}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyWord.Library", "EasyWord.Library\EasyWord.Library.csproj", "{1B321A04-3F03-4887-B83A-423E59BF305D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyWord.Test", "EasyWord.Test\EasyWord.Test.csproj", "{6B2BC83D-8258-48C1-88B0-821941416428}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EasyWord.Web", "EasyWord.Web\EasyWord.Web.csproj", "{8E094ACB-2AD5-4491-8F7A-2C8F3E8C2FC3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EasyWord.Web", "EasyWord.Web\EasyWord.Web.csproj", "{8E094ACB-2AD5-4491-8F7A-2C8F3E8C2FC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
