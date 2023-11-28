@@ -12,6 +12,7 @@ public partial class WordDetail
 
     private Word _word = new();
 
+    private bool _isLoadingPoetry = true;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -19,11 +20,22 @@ public partial class WordDetail
         {
             return;
         }
+        if (string.IsNullOrWhiteSpace(WordRank))
+        {
+            return;
+        }
 
-        var wordRank = Convert.ToInt32(WordRank);
-        var word = await _wordStorage.GetWordAsync(wordRank);
-        _word = word;
+        if (!int.TryParse(WordRank, out var wordRank))
+        {
+            return;
+        }
 
+        _isLoadingPoetry = true;
+        StateHasChanged();
+
+        _word = await _wordStorage.GetWordAsync(wordRank);
+
+        _isLoadingPoetry = false;
         StateHasChanged();
     }
 
@@ -32,7 +44,6 @@ public partial class WordDetail
     public async Task<int> KnowWord(int wordRank)
     {
         await _wordStorage.KnowWord(wordRank);
-
         return 1;
     }
 
@@ -40,7 +51,6 @@ public partial class WordDetail
     public async Task<int> UnknownWord(int wordRank)
     {
         await _wordStorage.UnknownWord(wordRank);
-
         return 1;
     }
 

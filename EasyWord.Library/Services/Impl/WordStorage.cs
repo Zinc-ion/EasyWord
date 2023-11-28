@@ -52,32 +52,37 @@ public class WordStorage : IWordStorage
 
     //实现返回CET4_1中的take数量的未背诵单词
     public async Task<IEnumerable<Word>> GetFromCET4_1Async(int take,int index) =>
-        await Connection.Table<Word>().Where(p => p.status == 0).Skip(index).Take(take).ToListAsync();
+        await Connection.Table<Word>().Where(p => p.Status == 0).Skip(index).Take(take).ToListAsync();
 
     public async Task<IEnumerable<Word>> GetWordsAsync(Expression<Func<Word, bool>> where, int skip, int take) =>
         await Connection.Table<Word>().Where(where).Skip(skip).Take(take).ToListAsync();
 
-    public async Task<Word> GetWordAsync(int wordRank) =>
-        await Connection.Table<Word>().FirstOrDefaultAsync(p => p.wordRank == wordRank);
+    public async Task<Word> GetWordAsync(int wordRank)
+    {
+        Console.WriteLine(wordRank);
+        Word word = await Connection.Table<Word>()
+            .Where(p => p.WordRank == wordRank)
+            .FirstOrDefaultAsync();
+        return word;
+    }
+
 
 
     //关闭数据库连接
     public async Task CloseAsync() => await Connection.CloseAsync();
 
 
-    public async Task<IEnumerable<Book>> GetBooksAsync() =>
-        await Connection.Table<Book>().ToListAsync();
 
 
     public async Task<int> KnowWord(int wordRank)
     {
         Word word = await Connection.Table<Word>()
-            .Where(p => p.wordRank == wordRank)
+            .Where(p => p.WordRank == wordRank)
             .FirstOrDefaultAsync();
         Console.WriteLine(word);
         if (word != null)
         {
-            word.status = 1;
+            word.Status = 1;
             await Connection.UpdateAsync(word);
             return 1;
         }
@@ -87,11 +92,11 @@ public class WordStorage : IWordStorage
     public async Task<int> UnknownWord(int wordRank)
     {
         var word = await Connection.Table<Word>()
-            .Where(p => p.wordRank == wordRank)
+            .Where(p => p.WordRank == wordRank)
             .FirstOrDefaultAsync();
         if (word != null)
         {
-            word.status = -1;
+            word.Status = -1;
             await Connection.UpdateAsync(word);
             return 1;
         }

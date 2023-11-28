@@ -12,7 +12,7 @@ public partial class TodayWords
 
     private int pageSize = 5;
 
-    private Expression<Func<Word, bool>> _where = p => p.status == 0;
+    private Expression<Func<Word, bool>> _where = p => p.Status == 0;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -70,5 +70,5 @@ public partial class TodayWords
 
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(
-            $"{NavigationServiceConstants.WordDetail}/{word.wordRank}");
+            $"{NavigationServiceConstants.WordDetail}/{word.WordRank}");
 }
