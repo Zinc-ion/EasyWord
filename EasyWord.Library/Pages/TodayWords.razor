@@ -1,16 +1,19 @@
 ﻿@page "/todayWords"
 @inject INavigationService _navigationService
 @inject IWordStorage _wordStorage
+@inject ToastService ToastService
 
 <div class="d-flex align-items-center">
 
     <button class="btn btn-primary" @onclick="DecrementPageSize">-</button>
 
     <h5 class="m-2" role="status">我今日要背: @pageSize 个单词</h5>  
+    <Button Size="Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
 
     <button class="btn btn-primary" @onclick="IncrementPageSize">+</button>
 
 </div>
+
 <Collapse>
     <CollapseItems>
     @foreach (var word in _words)
