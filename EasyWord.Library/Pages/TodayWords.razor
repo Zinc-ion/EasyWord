@@ -15,16 +15,18 @@
     <CollapseItems>
     @foreach (var word in _words)
     {
-        <CollapseItem Text=@word.headWord>
-                <span style="font-weight: bold; color: #0078d4">@word.headWord</span>
+        <CollapseItem Text=@word.HeadWord>
+            <div @onclick="() => OnClick(word)">
+                <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>
                 <div class="shim-2xs"></div>
-                @word.tranCN @word.pos
+                @word.TranCN @word.Pos
                 <div class="shim-2xs"></div>
                 <div class="btn-group" role="group">
-                    <Button Size="Size.Small" OnClick="() => KnowWord(word.wordRank)" Color="Color.Success">我认识</Button>
-                    <Button Size="Size.Small" OnClick="() => UnknownWord(word.wordRank)" Color="Color.Primary">我不认识</Button>
+                    <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">我认识</Button>
+                    <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">我不认识</Button>
                 </div>
-                <Button Size="Size.Small" OnClick="() => GoToDetail(word.wordRank)" Color="Color.Primary">走了</Button>
+                <Button Size="Size.Small" OnClick="() => GoToDetail(word.WordRank)" Color="Color.Primary">看看例句</Button>
+            </div>
         </CollapseItem>
     }
     </CollapseItems>

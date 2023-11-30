@@ -1,3 +1,15 @@
-﻿@page "/wordDetail/wordRank"
+﻿@page "/wordDetail/{wordRank}"
+@inject IWordStorage _wordStorage
 
-<h1>@WordRank</h1>
+@if (_isLoadingPoetry) {
+    <div>
+        <Spinner></Spinner>
+    </div>
+} else {
+    <h1 style="color: #0078d4">@_word.HeadWord</h1>
+    <div class="shim-xl"></div>
+    <h3>@_word.TranCN @_word.Pos</h3>
+
+    <div class="shim-2xl"></div>
+
+}

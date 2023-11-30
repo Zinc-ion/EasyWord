@@ -7,30 +7,30 @@ public class Word
 {
     [PrimaryKey]
     [SQLite.Column("wordRank")]
-    public int wordRank { get; set; }
+    public int WordRank { get; set; }
 
     [SQLite.Column("bookId")]
-    public string bookId { get; set; }
+    public string BookId { get; set; }
 
     [SQLite.Column("status")]
-    public int status { get; set; }
+    public int Status { get; set; }
 
     [SQLite.Column("headWord")]
-    public string headWord { get; set; }
+    public string HeadWord { get; set; }
 
     [SQLite.Column("tranCN")]
-    public string tranCN { get; set; }
+    public string TranCN { get; set; }
 
     [SQLite.Column("pos")]
-    public string pos { get; set; }
+    public string Pos { get; set; }
 
     [SQLite.Column("daysBetweenReviews")]
-    public float daysBetweenReviews { get; set; }
+    public float DaysBetweenReviews { get; set; }
 
     [SQLite.Column("lastScore")]
-    public float lastScore { get; set; }
+    public float LastScore { get; set; }
 
     [SQLite.Column("dateLastReviewed")]
-    public string dateLastReviewed { get; set; }
+    public string DateLastReviewed { get; set; }
 
 }

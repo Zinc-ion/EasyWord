@@ -15,11 +15,11 @@ public interface IWordStorage
     Task<IEnumerable<Word>> GetWordsAsync(
         Expression<Func<Word, bool>> where, int skip, int take);
 
-    //查找单词书
-    Task<IEnumerable<Book>> GetBooksAsync();
+    //查找单个单词
+    Task<Word> GetWordAsync(int wordRank);
 
     //认识单词
     Task<int> KnowWord(int wordRank);
-    Task<int> UnknownWord(int wordRank);
 
+    Task<int> UnknownWord(int wordRank);
 }

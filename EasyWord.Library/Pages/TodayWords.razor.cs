@@ -2,6 +2,7 @@
 using EasyWord.Library.Models;
 using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
+using EasyWord.Library.Services;
 
 namespace EasyWord.Library.Pages;
 
@@ -11,7 +12,7 @@ public partial class TodayWords
 
     private int pageSize = 5;
 
-    private Expression<Func<Word, bool>> _where = p => p.status == 0;
+    private Expression<Func<Word, bool>> _where = p => p.Status == 0;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -66,4 +67,8 @@ public partial class TodayWords
     {
         _navigationService.NavigateTo("/wordDetail/wordRank");
     }
+
+    private void OnClick(Word word) =>
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.WordDetail}/{word.WordRank}");
 }
