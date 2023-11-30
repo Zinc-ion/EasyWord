@@ -1,5 +1,9 @@
 ﻿@page "/counter"
 @using System.Speech.Synthesis
+@using EasyWord.Library.Services
+
+@using Edge_tts_sharp
+@inject ITTSService _ttsService
 
 <h1>Counter</h1>
 
@@ -17,18 +21,23 @@
     {
         currentCount++;
 
-	// 初始化SpeechSynthesizer.
-	    SpeechSynthesizer synth = new SpeechSynthesizer();
+	// // 初始化SpeechSynthesizer.
+	//     SpeechSynthesizer synth = new SpeechSynthesizer();
+	//
+	// //设置为本机中文化为英文的语音
+	//     synth.SelectVoice(currentCount % 2 == 0 ? "Microsoft Zira Desktop" : "Microsoft David Desktop");
+	//
+	//
+	// // 设置输出
+	//     synth.SetOutputToDefaultAudioDevice();
+	//
+	// // 输出
+	//     synth.Speak("now the current count is " + currentCount);
 
-	//设置为本机中文化为英文的语音
-	    synth.SelectVoice(currentCount % 2 == 0 ? "Microsoft Zira Desktop" : "Microsoft David Desktop");
+	    var msg = "now the current count is " + currentCount;
+	    _ttsService.ToSpeech(msg);
 
 
-	// 设置输出
-	    synth.SetOutputToDefaultAudioDevice();
-
-	// 输出
-	    synth.Speak("now the current count is " + currentCount);
     }
 
 

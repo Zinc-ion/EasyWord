@@ -50,6 +50,7 @@
     </ItemGroup>
 
     <ItemGroup>
+        <PackageReference Include="Edge_tts_sharp" Version="1.0.2" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
         <PackageReference Include="System.Speech" Version="8.0.0" />
     </ItemGroup>

@@ -24,6 +24,7 @@
   <ItemGroup>
     <PackageReference Include="BootstrapBlazor" Version="8.0.0" />
     <PackageReference Include="BootstrapBlazor.FontAwesome" Version="8.0.0" />
+    <PackageReference Include="Edge_tts_sharp" Version="1.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.4" />
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.6" />
