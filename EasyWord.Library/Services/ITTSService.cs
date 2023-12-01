@@ -2,5 +2,5 @@
 
 public interface ITTSService
 {
-    void ToSpeechAsync(string text);
+    Task<bool> ToSpeechAsync(string text);
 }
