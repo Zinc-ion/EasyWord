@@ -1,0 +1,19 @@
+﻿@page "/reading/{wordsToReading}"
+
+@inject IGenerateReadingService _generateReadingService
+
+<h1>@WordsToReading</h1>
+
+<Button Size="Size.Small" OnClick="() => GenerateReading(WordsToReading)" Color="Color.Success">生成阅读</Button>
+<div class="shim-2xl"></div>
+
+@if (_isLoadingReading)
+{
+    <div>
+        <Spinner></Spinner>
+    </div>
+}
+else
+{
+    <textarea readonly>@_reading</textarea>
+}

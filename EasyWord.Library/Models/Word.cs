@@ -33,4 +33,8 @@ public class Word
     [SQLite.Column("dateLastReviewed")]
     public string DateLastReviewed { get; set; }
 
+
+    [SQLite.Column("dateNextReview")]
+    public string DateNextReview { get; set; }
+
 }

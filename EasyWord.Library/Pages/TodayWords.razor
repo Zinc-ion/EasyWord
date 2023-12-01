@@ -8,10 +8,10 @@
     <button class="btn btn-primary" @onclick="DecrementPageSize">-</button>
 
     <h5 class="m-2" role="status">我今日要背: @pageSize 个单词</h5>  
-    <Button Size="Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
 
     <button class="btn btn-primary" @onclick="IncrementPageSize">+</button>
-
+    
+    <Button Size="Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
 </div>
 
 <Collapse>
@@ -25,10 +25,9 @@
                 @word.TranCN @word.Pos
                 <div class="shim-2xs"></div>
                 <div class="btn-group" role="group">
-                    <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">我认识</Button>
-                    <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">我不认识</Button>
+                    <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
+                    <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">加入复习</Button>
                 </div>
-                <Button Size="Size.Small" OnClick="() => GoToDetail(word.WordRank)" Color="Color.Primary">看看例句</Button>
             </div>
         </CollapseItem>
     }

@@ -1,6 +1,8 @@
 ﻿@page "/books"
 
+@inject INavigationService _navigationService
 @inject IWordStorage _wordStorage
+
 
 <Row ItemsPerRow="ItemsPerRow.Four">
 
@@ -8,6 +10,7 @@
         <BodyTemplate>
             <h5 class="card-title">CET4上册</h5>
             <p class="card-text">CET4(College English Test Band 4)是大学英语四级考试的简称,是测试大学生英语能力的一个标准化考试。</p>
+            <Button Size="Size.Small" OnClick='() => GoToWordsList("CET4_4")' Color="Color.Primary">查看词库</Button>
             <a href="/cet4_1Words" class="btn btn-primary">查看词库</a>
             <a href="/todayWords" class="btn btn-primary">开始学习</a>
         </BodyTemplate>
@@ -34,3 +37,11 @@
         </BodyTemplate>
     </Card>
 </Row>
+
+@code
+{
+    public void GoToWordsList(string bookId)
+    {
+        _navigationService.NavigateTo("/wordsList/{bookId}");
+    }
+}

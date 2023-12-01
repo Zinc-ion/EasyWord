@@ -87,13 +87,13 @@ public partial class TodayWords
         {
             _wordsToReading = _wordsToReading + " " + word.HeadWord;
         }
-        _navigationService.NavigateTo("/reading/_wordsToReading");
+
+        string wordsToReading = _wordsToReading;
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.Reading}/{wordsToReading}");
     }
 
-    private void GoToDetail(int wordRank)
-    {
-        _navigationService.NavigateTo("/wordDetail/wordRank");
-    }
+
 
 
     private void OnClick(Word word) =>

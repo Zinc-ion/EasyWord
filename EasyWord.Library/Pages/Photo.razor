@@ -1,0 +1,84 @@
+﻿@page "/photo"
+@using Microsoft.JSInterop
+@inject IPhotoService _photoService
+@inject IRecognizeWordService _recognizeWordService
+@inject IJSRuntime _jsRuntime
+
+<div class="row">
+    <div class="col-auto">
+        <Button OnClick="CaptureAsync">拍照</Button>
+    </div>
+    <div class="col-auto">
+        <Button OnClick="PickAsync">选图</Button>
+    </div>
+</div>
+
+@if (_isPhotoAvailable) {
+    <div class="shim-lg" />
+    <div style="background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%); padding: 1.5em; color: white">
+        @if (_isLoading) {
+            <h1>
+                <Spinner></Spinner>
+            </h1>
+        } else {
+            <h1>@_poetry</h1>
+        }
+    </div>
+    <img id="image"
+         class="w-100"/>
+    <div class="shim-xs"></div>
+}
+
+@code {
+
+    private bool _isPhotoAvailable = false;
+
+    private bool _isLoading = true;
+
+    private string _poetry = string.Empty;
+
+    private async Task CaptureAsync()
+    {
+        var bytes = await _photoService.CaptureAsync();
+        if (bytes is null)
+        {
+            return;
+        }
+
+        await PoetrilizeAsync(bytes);
+    }
+
+    private async Task PickAsync()
+    {
+        var bytes = await _photoService.PickAsync();
+        if (bytes is null)
+        {
+            return;
+        }
+
+        await PoetrilizeAsync(bytes);
+    }
+
+    private async Task PoetrilizeAsync(byte[] bytes)
+    {
+        _isPhotoAvailable = true;
+        _isLoading = true;
+        StateHasChanged();
+
+        await _jsRuntime.InvokeVoidAsync("setImage",
+            new DotNetStreamReference(new MemoryStream(bytes)), "image");
+
+        var poetry = await _recognizeWordService.RecognizeWordAsync(bytes);
+        _isLoading = false;
+        StateHasChanged();
+
+        if (poetry is null)
+        {
+            return;
+        }
+
+        _poetry = poetry;
+        StateHasChanged();
+    }
+
+}
