@@ -34,7 +34,6 @@ public static class MauiProgram
         builder.Services.AddScoped<IParcelBoxService, ParcelBoxService>();
         builder.Services.AddScoped<INewsService, NewsService>();
         builder.Services.AddScoped<IAlertService, AlertService>();
-		builder.Services.AddScoped<ITTSService, TTSService>();
         return builder.Build();
 	}
 }
