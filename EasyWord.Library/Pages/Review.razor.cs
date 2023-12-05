@@ -28,42 +28,6 @@ public partial class Review
         StateHasChanged();
     }
 
-
-    private async void IncrementPageSize()
-    {
-        ++pageSize;
-        if (pageSize > 20)
-        {
-            soLittleWords = true;
-            --pageSize;
-            await ToastService.Error("不能再加了", "背这么多要复习不完喽", autoHide: true);
-
-        }
-        StateHasChanged();
-        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
-        _words.Clear();
-        _words.AddRange(words);
-        StateHasChanged();
-
-    }
-    private async void DecrementPageSize()
-    {
-        --pageSize;
-        if (pageSize < 1)
-        {
-            soLittleWords = true;
-            ++pageSize;
-            await ToastService.Error("不能再减了", "至少要背一个吧", autoHide: true);
-
-        }
-        StateHasChanged();
-        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
-        _words.Clear();
-        _words.AddRange(words);
-        StateHasChanged();
-
-    }
-
     //认识
     public async Task<int> KnowWord(int wordRank)
     {

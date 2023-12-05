@@ -7,10 +7,12 @@
 
     <button class="btn btn-primary" @onclick="DecrementPageSize">-</button>
 
-    <h5 class="m-2" role="status">我今日要背: @pageSize 个单词</h5>  
+    <h5 class="m-2" role="status">我今日还要背: </h5>
+    <h3>@pageSize</h3>
+    <h5 class="m-2" role="status"> 个单词</h5>
 
     <button class="btn btn-primary" @onclick="IncrementPageSize">+</button>
-    
+
     <Button Size="Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
 </div>
 
@@ -18,16 +20,16 @@
     <CollapseItems>
     @foreach (var word in _words)
     {
-        <CollapseItem Text=@word.HeadWord>
+        <CollapseItem Text=@word.HeadWord >
             <div @onclick="() => OnClick(word)">
                 <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>
-                <div class="shim-2xs"></div>
+
                 @word.TranCN @word.Pos
                 <div class="shim-2xs"></div>
-                <div class="btn-group" role="group">
-                    <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
-                    <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">加入复习</Button>
-                </div>
+            </div>
+            <div class="btn-group" role="group">
+                <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
+                <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">加入复习</Button>
             </div>
         </CollapseItem>
     }

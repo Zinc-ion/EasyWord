@@ -1,11 +1,34 @@
-﻿@page "/reading/{wordsToReading}"
+﻿@page "/reading"
 
 @inject IGenerateReadingService _generateReadingService
+@inject IWordStorage _wordStorage
+@inject INavigationService _navigationService
+<h1>@_wordsToReading</h1>
 
-<h1>@WordsToReading</h1>
-
-<Button Size="Size.Small" OnClick="() => GenerateReading(WordsToReading)" Color="Color.Success">生成阅读</Button>
+<Button Size="Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
 <div class="shim-2xl"></div>
+
+
+<Collapse>
+    <CollapseItems>
+        @foreach (var word in _words)
+        {
+            <CollapseItem Text=@word.HeadWord >
+                <div @onclick="() => OnClick(word)">
+                    <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>
+
+                    @word.TranCN @word.Pos
+                    <div class="shim-2xs"></div>
+                </div>
+                <div class="btn-group" role="group">
+                    <Button Size="Size.Small" OnClick="() => addWord(word.HeadWord)" Color="Color.Success">+</Button>
+                </div>
+            </CollapseItem>
+        }
+    </CollapseItems>
+</Collapse>
+
+
 
 @if (_isLoadingReading)
 {

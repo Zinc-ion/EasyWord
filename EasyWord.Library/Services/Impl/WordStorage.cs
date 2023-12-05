@@ -91,8 +91,10 @@ public class WordStorage : IWordStorage
         {
             //获取时间
             string now = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            string nowDate = DateTime.Now.ToString("yyyy-MM-dd");
             word.Status = -1;
             word.DateLastReviewed = now;
+            word.DateRecite = nowDate;
             await Connection.UpdateAsync(word);
             return 1;
         }
@@ -122,6 +124,7 @@ public class WordStorage : IWordStorage
 
             // 转为字符串格式保存
             word.DateNextReview = nextReview.ToString("yyyy-MM-dd HH:mm:ss");
+            word.DateRecite = DateTime.Now.ToString("yyyy-MM-dd");
 
             await Connection.UpdateAsync(word);
             return 1;

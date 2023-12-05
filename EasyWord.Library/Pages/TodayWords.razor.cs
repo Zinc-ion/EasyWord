@@ -12,11 +12,11 @@ public partial class TodayWords
 
     private int pageSize = 5;
 
+    private int totalWords = 0;
+
     private Expression<Func<Word, bool>> _where = p => p.Status == 0;
 
     private bool soLittleWords = false;
-
-    private string _wordsToReading = "";
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender)
@@ -69,7 +69,13 @@ public partial class TodayWords
     public async Task<int> KnowWord(int wordRank)
     {
         await _wordStorage.KnowWord(wordRank);
-
+        --pageSize;
+        ++totalWords;
+        StateHasChanged();
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 
@@ -77,20 +83,20 @@ public partial class TodayWords
     public async Task<int> UnknownWord(int wordRank)
     {
         await _wordStorage.UnknownWord(wordRank);
-
+        --pageSize;
+        ++totalWords;
+        StateHasChanged();
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 
     private async void GenerateReading()
     {
-        foreach (Word word in _words)
-        {
-            _wordsToReading = _wordsToReading + " " + word.HeadWord;
-        }
-
-        string wordsToReading = _wordsToReading;
         _navigationService.NavigateTo(
-            $"{NavigationServiceConstants.Reading}/{wordsToReading}");
+            $"{NavigationServiceConstants.Reading}");
     }
 
 
