@@ -26,7 +26,7 @@ public class GenerateSentenceService : IGenerateSentenceService
         {
             response =
                 await httpClient.PostAsync(
-                    "http:/XXXXX", formData);
+                    "http://127.0.0.1:8000/home/sentenceComposing", formData);
             response.EnsureSuccessStatusCode();
         }
         catch (Exception e)
