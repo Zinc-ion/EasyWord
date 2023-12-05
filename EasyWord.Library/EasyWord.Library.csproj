@@ -11,9 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-	  <EmbeddedResource Include="inami.db">
-		  <LogicalName>inami.db</LogicalName>
-	  </EmbeddedResource>
+    <EmbeddedResource Include="inami.db" />
   </ItemGroup>
 
 
