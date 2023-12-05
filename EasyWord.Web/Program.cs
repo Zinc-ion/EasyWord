@@ -21,7 +21,7 @@ builder.Services.AddScoped<INavigationService, NavigationService>();
 builder.Services.AddScoped<IParcelBoxService, ParcelBoxService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<IAlertService, AlertService>();
-builder.Services.AddScoped<IGenerateSentenceService, GenerateSentenceService>();
+builder.Services.AddScoped<ITTSService, TTSService>();
 
 var app = builder.Build();
 
