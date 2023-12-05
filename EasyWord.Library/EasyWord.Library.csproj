@@ -29,6 +29,7 @@
     <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
     <PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.6" />
     <PackageReference Include="Sve.Blazor.InfiniteScroll" Version="1.0.0-alpha" />
+    <PackageReference Include="TheSalLab.GeneralReturnValues" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
