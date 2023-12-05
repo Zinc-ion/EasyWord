@@ -42,6 +42,7 @@ public class WordStorage : IWordStorage
         await using var dbFileStream =
             new FileStream(WordDbPath, FileMode.OpenOrCreate);
         //打开资源流
+        //TODO web端现在会出现初始化时找不到资源流的问题
         await using var dbAssetStream =
             typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
         //copy流
