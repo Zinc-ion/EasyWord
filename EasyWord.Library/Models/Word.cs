@@ -24,13 +24,12 @@ public class Word
     [SQLite.Column("pos")]
     public string Pos { get; set; }
 
-    [SQLite.Column("daysBetweenReviews")]
-    public float DaysBetweenReviews { get; set; }
-
-    [SQLite.Column("lastScore")]
-    public float LastScore { get; set; }
-
     [SQLite.Column("dateLastReviewed")]
     public string DateLastReviewed { get; set; }
 
+    [SQLite.Column("dateNextReview")]
+    public string DateNextReview { get; set; }
+
+    [SQLite.Column("dateRecite")]
+    public string DateRecite { get; set; }
 }

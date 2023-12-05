@@ -12,8 +12,13 @@ public partial class WordDetail
 
     private Word _word = new();
 
-    private bool _isLoadingPoetry = true;
+    private bool _isLoadingWord = true;
 
+    private bool _isSentenceAvailable = false;
+
+    private bool _isLoadingSentence = false;
+
+    private string _sentence = "";
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender)
@@ -30,28 +35,25 @@ public partial class WordDetail
             return;
         }
 
-        _isLoadingPoetry = true;
+        _isLoadingWord = true;
         StateHasChanged();
 
         _word = await _wordStorage.GetWordAsync(wordRank);
 
-        _isLoadingPoetry = false;
+        _isLoadingWord = false;
         StateHasChanged();
     }
 
 
-    //认识
-    public async Task<int> KnowWord(int wordRank)
+    private async void GenerateSentence(string headWord)
     {
-        await _wordStorage.KnowWord(wordRank);
-        return 1;
-    }
-
-    //不认识单词
-    public async Task<int> UnknownWord(int wordRank)
-    {
-        await _wordStorage.UnknownWord(wordRank);
-        return 1;
+        _isSentenceAvailable = true;
+        _isLoadingSentence = true;
+        StateHasChanged();
+        //TODO 调用_GenerateSentenceService服务，生成例句
+        _sentence = await _generateSentenceService.GenerateSentenceAsync(headWord);
+        _isLoadingSentence = false;
+        StateHasChanged();
     }
 
 }

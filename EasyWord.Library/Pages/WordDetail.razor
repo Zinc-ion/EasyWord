@@ -1,7 +1,7 @@
 ﻿@page "/wordDetail/{wordRank}"
 @inject IWordStorage _wordStorage
-
-@if (_isLoadingPoetry) {
+@inject IGenerateSentenceService _generateSentenceService
+@if (_isLoadingWord) {
     <div>
         <Spinner></Spinner>
     </div>
@@ -11,5 +11,17 @@
     <h3>@_word.TranCN @_word.Pos</h3>
 
     <div class="shim-2xl"></div>
+    <Button Size="Size.Small" OnClick="() => GenerateSentence(_word.HeadWord)" Color="Color.Success">生成例句</Button>
+    <div class="shim-2xl"></div>
 
+    @if (_isLoadingSentence)
+    {
+        <div>
+            <Spinner></Spinner>
+        </div>
+    }
+    else
+    {
+        <textarea readonly>@_sentence</textarea>
+    }
 }

@@ -1,0 +1,25 @@
+﻿@page "/review"
+
+@inject INavigationService _navigationService
+@inject IWordStorage _wordStorage
+@inject ToastService ToastService
+
+<Collapse>
+    <CollapseItems>
+        @foreach (var word in _words)
+        {
+            <CollapseItem Text=@word.HeadWord>
+                <div @onclick="() => OnClick(word)">
+                    <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>
+                    <div class="shim-2xs"></div>
+                    @word.TranCN @word.Pos
+                    <div class="shim-2xs"></div>
+                    <div class="btn-group" role="group">
+                        <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
+                        <Button Size="Size.Small" OnClick="() => ReviewNextTime(word.WordRank)" Color="Color.Primary">下次复习</Button>
+                    </div>
+                </div>
+            </CollapseItem>
+        }
+    </CollapseItems>
+</Collapse>

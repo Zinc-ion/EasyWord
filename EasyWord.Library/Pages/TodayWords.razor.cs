@@ -12,8 +12,11 @@ public partial class TodayWords
 
     private int pageSize = 5;
 
+    private int totalWords = 0;
+
     private Expression<Func<Word, bool>> _where = p => p.Status == 0;
 
+    private bool soLittleWords = false;
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender)
@@ -30,6 +33,14 @@ public partial class TodayWords
     private async void IncrementPageSize()
     {
         ++pageSize;
+        if (pageSize > 20)
+        {
+            soLittleWords = true;
+            --pageSize;
+            await ToastService.Error("不能再加了", "背这么多要复习不完喽", autoHide: true);
+
+        }
+        StateHasChanged();
         var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
         _words.Clear();
         _words.AddRange(words);
@@ -39,6 +50,14 @@ public partial class TodayWords
     private async void DecrementPageSize()
     {
         --pageSize;
+        if (pageSize < 1)
+        {
+            soLittleWords = true;
+            ++pageSize;
+            await ToastService.Error("不能再减了", "至少要背一个吧", autoHide: true);
+
+        }
+        StateHasChanged();
         var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
         _words.Clear();
         _words.AddRange(words);
@@ -50,7 +69,13 @@ public partial class TodayWords
     public async Task<int> KnowWord(int wordRank)
     {
         await _wordStorage.KnowWord(wordRank);
-
+        --pageSize;
+        ++totalWords;
+        StateHasChanged();
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 
@@ -58,15 +83,24 @@ public partial class TodayWords
     public async Task<int> UnknownWord(int wordRank)
     {
         await _wordStorage.UnknownWord(wordRank);
-
+        --pageSize;
+        ++totalWords;
+        StateHasChanged();
+        var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 
-
-    private void GoToDetail(int wordRank)
+    private async void GenerateReading()
     {
-        _navigationService.NavigateTo("/wordDetail/wordRank");
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.Reading}");
     }
+
+
+
 
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(

@@ -1,7 +1,9 @@
-﻿using EasyWord.Library.Services;
+﻿using EasyWord.Library.Models;
+using EasyWord.Library.Services;
 using EasyWord.Library.Services.Impl;
 using EasyWord.Test.Helpers;
 using Moq;
+using System.Linq.Expressions;
 
 namespace EasyWord.Test.Services;
 
@@ -87,4 +89,34 @@ public class WordStorageTest : IDisposable
         Assert.Equal(1, result);
         await wordStorage.CloseAsync();
     }
+
+
+
+    // GetWordsAsync(
+        //Expression<Func<Word, bool>> where, int skip, int take);
+
+    //查找单个单词
+   // Task<Word> GetWordAsync(int wordRank);
+
+
+
+    [Fact]
+    public async Task ReviewWord()
+    {
+        var wordStorage = await WordStorageHelper.GetInitializedPoetryStorage();
+        var result = await wordStorage.ReviewWord(5);
+        Assert.Equal(1, result);
+        await wordStorage.CloseAsync();
+    }
+
+    [Fact]
+    public async Task GetReviewWordsAsync_Default()
+    {
+        var wordStorage =
+            await WordStorageHelper.GetInitializedPoetryStorage();
+        var words = await wordStorage.GetReviewWordsAsync();
+        Assert.NotEmpty(words);
+        await wordStorage.CloseAsync();
+    }
+
 }
