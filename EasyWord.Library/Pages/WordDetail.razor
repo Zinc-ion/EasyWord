@@ -1,6 +1,7 @@
 ﻿@page "/wordDetail/{wordRank}"
 @inject IWordStorage _wordStorage
 @inject IGenerateSentenceService _generateSentenceService
+@inject ITTSService _tTSService
 @if (_isLoadingWord) {
     <div>
         <Spinner></Spinner>
@@ -9,6 +10,11 @@
     <h1 style="color: #0078d4">@_word.HeadWord</h1>
     <div class="shim-xl"></div>
     <h3>@_word.TranCN @_word.Pos</h3>
+
+   
+    <Button Text="发音" OnClick="() => ToSpeech(_word.HeadWord)" Icon="fa-fw fa-solid fa-microphone" />
+    <SpeechWave Show="Start" ShowUsedTime="false" class="my-3" />
+
 
     <div class="shim-2xl"></div>
     <Button Size="Size.Small" OnClick="() => GenerateSentence(_word.HeadWord)" Color="Color.Success">生成例句</Button>

@@ -2,6 +2,7 @@
 @inject INavigationService _navigationService
 @inject IWordStorage _wordStorage
 @inject ToastService ToastService
+@inject ITTSService _tTSService
 
 <div class="d-flex align-items-center">
 
@@ -29,7 +30,8 @@
             </div>
             <div class="btn-group" role="group">
                 <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
-                <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">加入复习</Button>
+	            <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">加入复习</Button>
+	            <Button Text="发音" OnClick="() => ToSpeech(word.HeadWord)" Icon="fa-fw fa-solid fa-microphone" Color="Color.Success"/>
             </div>
         </CollapseItem>
     }

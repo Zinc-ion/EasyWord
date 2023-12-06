@@ -3,6 +3,7 @@ using EasyWord.Library.Models;
 using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
 using EasyWord.Library.Services;
+using EasyWord.Library.Services.Impl;
 
 namespace EasyWord.Library.Pages;
 
@@ -100,7 +101,19 @@ public partial class TodayWords
     }
 
 
-
+    //单词发音
+    private async Task ToSpeech(string word)
+    {
+        if (!string.IsNullOrEmpty(word))
+        {
+           
+            if (await _tTSService.ToSpeechAsync(word))
+            {
+                await Task.Delay(2500);
+            
+            }
+        }
+    }
 
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(
