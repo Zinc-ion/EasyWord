@@ -11,10 +11,21 @@
     <div class="shim-xl"></div>
     <h3>@_word.TranCN @_word.Pos</h3>
 
-   
-    <Button Text="发音" OnClick="() => ToSpeech(_word.HeadWord)" Icon="fa-fw fa-solid fa-microphone" />
-    <SpeechWave Show="Start" ShowUsedTime="false" class="my-3" />
 
+    <div  style="width: 300px">
+	    <div style="float: left; margin-top: 22px">
+		    <Button Text="发音" OnClick="() => ToSpeech(_word.HeadWord)" Icon="fa-fw fa-solid fa-microphone"/>
+	    </div>
+        
+	    <div style="float: left; margin-left: 20px">
+		    <SpeechWave Show="Start" ShowUsedTime="false" class="my-3"/>
+	    </div>
+		
+	</div>
+
+	<br/>
+	<br/>
+    <br/>
 
     <div class="shim-2xl"></div>
     <Button Size="Size.Small" OnClick="() => GenerateSentence(_word.HeadWord)" Color="Color.Success">生成例句</Button>
