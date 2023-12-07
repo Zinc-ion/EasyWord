@@ -20,7 +20,6 @@
 	    <div style="float: left; margin-left: 20px">
 		    <SpeechWave Show="Start" ShowUsedTime="false" class="my-3"/>
 	    </div>
-		
 	</div>
 
 	<br/>
@@ -41,4 +40,15 @@
     {
         <textarea readonly>@_sentence</textarea>
     }
+
+	<div  style="width: 300px">
+		<div style="float: left; margin-top: 22px">
+            <Button Text="例句发音" OnClick="() => SentenceToSpeech(_sentence)" Icon="fa-fw fa-solid fa-microphone" />
+		</div>
+        
+		<div style="float: left; margin-left: 20px">
+			<SpeechWave Show="Start2" ShowUsedTime="false" class="my-3"/>
+		</div>
+	</div>
+
 }

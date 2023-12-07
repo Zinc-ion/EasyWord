@@ -58,15 +58,8 @@ public partial class WordDetail
     }
 
 
-
-
-
-
-
-
+    //单词发音
     private bool Start { get; set; }
-
-
 
     private async Task ToSpeech(string word)
     {
@@ -90,6 +83,35 @@ public partial class WordDetail
     private void SpeechOff()
     {
         Start = false;
+        StateHasChanged();
+    }
+
+    //例句发音
+    private bool Start2 { get; set; }
+
+    private async Task SentenceToSpeech(string sentence)
+    {
+        var enSentence = sentence.Split("/n")[0];
+        if (!string.IsNullOrEmpty(enSentence))
+        {
+            SentenceSpeechOn();
+            if (await _tTSService.ToSpeechAsync(enSentence))
+            {
+                await Task.Delay(8000);
+                SentenceSpeechOff();
+            }
+        }
+    }
+
+    private void SentenceSpeechOn()
+    {
+        Start2 = true;
+        StateHasChanged();
+    }
+
+    private void SentenceSpeechOff()
+    {
+        Start2 = false;
         StateHasChanged();
     }
 
