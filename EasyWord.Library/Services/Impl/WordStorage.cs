@@ -46,14 +46,24 @@ public class WordStorage : IWordStorage
     //异步初始化数据库 xj实现
     public async Task InitializeAsync()
     {
-        //打开文件流
-        await using var dbFileStream =
-            new FileStream(WordDbPath, FileMode.OpenOrCreate);
-        //打开资源流
-        await using var dbAssetStream =
-            typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
-        //copy流
-        await dbAssetStream.CopyToAsync(dbFileStream);
+        
+        //TODO web端现在会出现初始化时找不到资源流的问题
+        try
+        {
+            //打开文件流
+            await using var dbFileStream =
+                new FileStream(WordDbPath, FileMode.OpenOrCreate);
+            //打开资源流
+            await using var dbAssetStream =
+                typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
+            //copy流
+            await dbAssetStream.CopyToAsync(dbFileStream);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
 
         //存储版本号
         _preferenceStorage.Set(WordStorageConstant.DbVersionKey,

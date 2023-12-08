@@ -38,6 +38,7 @@ public static class MauiProgram
         builder.Services.AddScoped<IGenerateReadingService, GenerateReadingService>();
         builder.Services.AddScoped<IPhotoService, PhotoService>();
         builder.Services.AddScoped<IRecognizeWordService, RecognizeWordService>();
+        builder.Services.AddScoped<ITTSService, TTSService>();
         return builder.Build();
 	}
 }
