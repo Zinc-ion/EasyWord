@@ -32,7 +32,11 @@ public partial class Review
     public async Task<int> KnowWord(int wordRank)
     {
         await _wordStorage.KnowWord(wordRank);
-
+        StateHasChanged();
+        var words = await _wordStorage.GetReviewWordsAsync();
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 
@@ -40,7 +44,11 @@ public partial class Review
     public async Task<int> ReviewNextTime(int wordRank)
     {
         await _wordStorage.ReviewWord(wordRank);
-
+        StateHasChanged();
+        var words = await _wordStorage.GetReviewWordsAsync();
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 

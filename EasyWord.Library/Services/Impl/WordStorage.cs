@@ -135,7 +135,6 @@ public class WordStorage : IWordStorage
             //将复习状态变为10，每复习一次就减1减到0就将其变为-1，不再显示
             word.Status = 10;
             word.DateLastReviewed = now;
-
             // 计算下次复习时间
             DateTime nextReview = DateTime.Now;
             int interval = (10 - word.Status + 1) * 10; // 间隔小时数
@@ -189,7 +188,7 @@ public class WordStorage : IWordStorage
         DateTime now = DateTime.Now;
 
         Expression<Func<Word, bool>> where;
-        var words  = await Connection.Table<Word>().Where(p => true).ToListAsync();
+        var words  = await Connection.Table<Word>().Where(p => p.Status != -1).ToListAsync();
 
         // 数据处理
         var wordsToReview = new List<Word>();
