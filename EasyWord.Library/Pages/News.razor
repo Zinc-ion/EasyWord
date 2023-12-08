@@ -12,8 +12,8 @@
             <div class="shim-2xs"></div>
             @_article.Description 
             <div class="shim-2xs"></div>
-            @_article.Url
-            @_article.UrlToImage
+            <a href="@_article.Url">@_article.Url</a>
+            <a href="@_article.UrlToImage"><img src="@_article.UrlToImage"></a>
         </BodyTemplate>
     </Card>
 </div>

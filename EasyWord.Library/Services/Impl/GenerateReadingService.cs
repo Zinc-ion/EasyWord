@@ -25,7 +25,7 @@ public class GenerateReadingService : IGenerateReadingService
         {
             response =
                 await httpClient.PostAsync(
-                    "http://127.0.0.1:8000/home/textComposing", formData);
+                    "http://172.22.31.10:8000/home/textComposing", formData);
             response.EnsureSuccessStatusCode();
         }
         catch (Exception e)

@@ -5,13 +5,15 @@
 
 <div class="d-flex align-items-center">
 
-    <button class="btn btn-primary" @onclick="DecrementPageSize">-</button>
+    <button class="btn btn-primary" @onclick="DecrementGoal">-</button>
+    
 
-    <h5 class="m-2" role="status">我今日还要背: </h5>
-    <h3>@pageSize</h3>
+    <h5 class="m-2" role="status">目标: </h5>
+    <h3>@goal</h3>
     <h5 class="m-2" role="status"> 个单词</h5>
 
-    <button class="btn btn-primary" @onclick="IncrementPageSize">+</button>
+    <button class="btn btn-primary" @onclick="IncrementGoal">+</button>
+
 
     <Button Size="Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
 </div>

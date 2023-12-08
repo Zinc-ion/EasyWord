@@ -12,6 +12,8 @@
                 <div @onclick="() => OnClick(word)">
                     <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>
                     <div class="shim-2xs"></div>
+                    上次复习时间: @word.DateLastReviewed
+                    <div class="shim-2xs"></div>
                     @word.TranCN @word.Pos
                     <div class="shim-2xs"></div>
                     <div class="btn-group" role="group">

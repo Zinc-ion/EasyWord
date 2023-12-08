@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using EasyWord.Library.Models;
 using SQLite;
 using System;
+using Microsoft.VisualBasic;
 
 namespace EasyWord.Library.Services.Impl;
 
@@ -29,6 +30,13 @@ public class WordStorage : IWordStorage
         _preferenceStorage = preferenceStorage;
     }
 
+    //存书名
+    public async Task SetBookId(string bookId) => 
+        _preferenceStorage.Set(WordStorageConstant.BookIdKey, bookId);
+
+    //获取键值存储中的书名
+    public string bookId => _preferenceStorage.Get(WordStorageConstant.BookIdKey, "CET_4");
+
     // TestIsInitialized xj实现
     public bool IsInitialized =>
         _preferenceStorage.Get(WordStorageConstant.DbVersionKey, 0) ==
@@ -51,6 +59,7 @@ public class WordStorage : IWordStorage
         _preferenceStorage.Set(WordStorageConstant.DbVersionKey,
             WordStorageConstant.Version);
     }
+
 
 
     //实现返回CET4_1中的take数量的未背诵单词
@@ -190,6 +199,7 @@ public class WordStorage : IWordStorage
         return wordsToReview;
     }
 
+
 }
 
 //数据库相关常量，防止直接拼写打错字 xj实现
@@ -200,5 +210,7 @@ public static class WordStorageConstant
     // nameof(WordStorageConstant) -> "WordStorageConstant"
     // "WordStorageConstant.DbVersionKey"
 
+    public const string BookIdKey =
+        nameof(WordStorageConstant) + "." + nameof(BookIdKey);
     public const int Version = 1;
 }

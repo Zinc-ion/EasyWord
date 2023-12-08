@@ -9,6 +9,8 @@ public interface IWordStorage
 
     Task InitializeAsync();
 
+    Task SetBookId(string bookId);
+
     //CET4_1查找take个单词
     Task<IEnumerable<Word>> GetFromCET4_1Async(int take,int index);
 
@@ -29,4 +31,6 @@ public interface IWordStorage
 
     //复习单词
     Task<int> ReviewWord(int wordRank);
+
+    
 }
