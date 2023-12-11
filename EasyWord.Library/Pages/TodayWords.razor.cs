@@ -142,3 +142,12 @@ public partial class TodayWords
         _navigationService.NavigateTo(
             $"{NavigationServiceConstants.WordDetail}/{word.WordRank}");
 }
+
+/*<div class="d-flex align-items-center">
+
+    <button class="btn btn-primary" @onclick="DecrementGoal">-</button>
+
+    <button class="btn btn-primary" @onclick="IncrementGoal">+</button>
+
+    <Button Size = "Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
+    </div>*/
