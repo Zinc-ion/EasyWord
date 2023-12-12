@@ -3,11 +3,68 @@
 @inject INavigationService _navigationService
 @inject IWordStorage _wordStorage
 @inject ToastService ToastService
+@inject ITTSService _tTSService
+
+<div style="display: flex; align-items: center;">
+
+    <div style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;"></div>
+
+    <div style="
+      font-size: 20px;
+      opacity: 0.7;
+      margin-right: 20px;
+      display: flex;
+      align-items: center;">
+        单词复习
+    </div>
+
+
+</div>
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
 
 <Collapse>
     <CollapseItems>
         @foreach (var word in _words)
         {
+            <CollapseItem Text=@word.HeadWord>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+
+                    <div @onclick="() => OnClick(word)">
+                        <span style="opacity: 0.7; font-size: 1.2em;">@word.Pos</span>
+                        <span style="opacity: 0.7; font-size: 1.2em;">@word.TranCN</span>
+                        <div class="shim-2xs"></div>
+                    </div>
+
+                    <div style="display: flex; align-items: center;">
+                        <div @onclick="() => KnowWord(word.WordRank)" 
+                             style="margin-right: 10px; font-size: 1.2em;">
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                        </div>
+
+                        <div @onclick="() => ReviewNextTime(word.WordRank)"
+                             style="margin-right: 10px; font-size: 1.2em;">
+                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                        </div>
+
+                        <div @onclick="() => ToSpeech(word.HeadWord)"  
+                             style="font-size: 1.2em;">
+                            <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </CollapseItem>
+
             <CollapseItem Text=@word.HeadWord>
                 <div @onclick="() => OnClick(word)">
                     <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>

@@ -52,6 +52,18 @@ public partial class Review
         return 1;
     }
 
+    private async Task ToSpeech(string word)
+    {
+        if (!string.IsNullOrEmpty(word))
+        {
+
+            if (await _tTSService.ToSpeechAsync(word))
+            {
+                await Task.Delay(2500);
+
+            }
+        }
+    }
 
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(

@@ -1,0 +1,96 @@
+﻿@page "/yiYan"
+@using EasyWord.Library.Models
+@using System.Runtime.InteropServices.ComTypes
+@inject IYiYanService _YiYanService
+
+
+
+<div style="display: flex; align-items: center;">
+    <div
+        style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;
+    "
+    ></div>
+
+    <div
+        style="
+      font-size: 20px;
+      opacity: 0.7;
+      margin-right: 20px; 
+      display: flex;
+      align-items: center;
+    "
+    >
+        一言    ——寻找属于你的一言
+    </div>
+</div>
+
+<div>
+    <div class="shim-xl"></div>
+
+    推荐自
+
+    <a
+        href="https://developer.hitokoto.cn/"
+        target="_blank"
+    >
+        一言开发者中心
+    </a>
+</div>
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
+
+
+
+
+<div>
+    <div class="card">
+        <div class="card-header">
+            <span class="card-type">@_article.Type</span>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                @_article.Text
+            </p>
+            <div class="source">
+                来自  <span> @_article.Creator</span> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+@code
+{
+    private Hitokoto _article = new Hitokoto();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+        await GetHitikotoAsync();
+        StateHasChanged();
+    }
+
+
+
+
+    public async Task<Hitokoto> GetHitikotoAsync()
+    {
+        _article = await _YiYanService.GetHitikotoAsync();
+        return _article;
+    }
+}
