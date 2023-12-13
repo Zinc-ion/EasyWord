@@ -2,53 +2,117 @@
 @inject IWordStorage _wordStorage
 @inject IGenerateSentenceService _generateSentenceService
 @inject ITTSService _tTSService
+
+<div style="display: flex; align-items: center;">
+
+    <div style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;"></div>
+
+    <div style="
+      font-size: 20px;
+      opacity: 0.7;
+      margin-right: 20px;
+      display: flex;
+      align-items: center;">
+        单词详情
+    </div>
+
+</div>
+
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
+
+
 @if (_isLoadingWord) {
     <div>
         <Spinner></Spinner>
     </div>
 } else {
-    <h1 style="color: #0078d4">@_word.HeadWord</h1>
-    <div class="shim-xl"></div>
-    <h3>@_word.TranCN @_word.Pos</h3>
+    <div class="shim-lg"></div>
+    <div style="display: flex; align-items: center;">
+
+        <div style="margin-right: 18px;">
+            <h3>@_word.HeadWord</h3>
+        </div>
+
+        <div style="margin-right: 18px;">
+            <SpeechWave Show="Start" ShowUsedTime="false" class="my-3"/>
+        </div>
+
+    </div>
 
 
-    <div  style="width: 300px">
-	    <div style="float: left; margin-top: 22px">
-		    <Button Text="发音" OnClick="() => ToSpeech(_word.HeadWord)" Icon="fa-fw fa-solid fa-microphone"/>
-	    </div>
-        
-	    <div style="float: left; margin-left: 20px">
-		    <SpeechWave Show="Start" ShowUsedTime="false" class="my-3"/>
-	    </div>
-	</div>
+    <div class="shim-lg"></div>
 
-	<br/>
-	<br/>
-    <br/>
+    <div style="display: flex;">
 
-    <div class="shim-2xl"></div>
-    <Button Size="Size.Small" OnClick="() => GenerateSentence(_word.HeadWord)" Color="Color.Success">生成例句</Button>
-    <div class="shim-2xl"></div>
+        <div style="opacity: 0.7; font-size: 1.1em;">
+            <div style="display: inline-block;">@_word.TranCN</div>
+    
+            <div style="display: inline-block; border-left: 1px solid; padding-left: 5px;"></div>
+        </div>
 
-    @if (_isLoadingSentence)
+        <div style="opacity: 0.7; border-left: 1px solid; padding-left: 5px;">
+            <div style="display: inline-block; font-size: 1.1em;">词性 @_word.Pos</div>
+        </div>
+
+        <div style="display: flex; align-items: center; opacity: 0.7; font-size: 1.1em;">
+    
+            <div style="border-left: 1px solid; padding-left: 5px;"></div>
+    
+            <div style="border-left: 1px solid; padding-left: 5px;"></div>
+    
+            <div @onclick="() => ToSpeech(_word.HeadWord)">
+                <i class="fa-solid fa-bullhorn"></i>
+                发音
+            </div>
+        </div>
+    </div>
+
+    <div class="shim-lg"></div>
+
+    if (!_isSentenceAvailable)
     {
-        <div>
-            <Spinner></Spinner>
+        <div @onclick="() => GenerateSentence(_word.HeadWord)" style="opacity: 0.7; padding-left: 5px;">
+            <div style="display: inline-block; font-size: 1.1em;">生成例句</div>
         </div>
     }
     else
     {
-        <h3>@_sentence</h3>
+        @if (_isLoadingSentence)
+        {
+            <div>
+                <Spinner></Spinner>
+            </div>
+        }
+        else
+        {
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-type">AI生成例句</span>
+                        <div @onclick="() => ToSpeech(_sentence)">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            @_sentence
+                        </p>
+                    </div>
+                </div>
+            </div>
+        }
     }
 
-	<div  style="width: 300px">
-		<div style="float: left; margin-top: 22px">
-            <Button Text="例句发音" OnClick="() => SentenceToSpeech(_sentence)" Icon="fa-fw fa-solid fa-microphone" />
-		</div>
-        
-		<div style="float: left; margin-left: 20px">
-			<SpeechWave Show="Start2" ShowUsedTime="false" class="my-3"/>
-		</div>
-	</div>
+
+   
 
 }
