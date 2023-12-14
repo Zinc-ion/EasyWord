@@ -39,7 +39,9 @@ public class NewsService : INewsService
         }
 
         var json = await response.Content.ReadAsStringAsync();
+
         NewsMessage newsMessage;
+
         try
         {
             newsMessage = JsonSerializer.Deserialize<NewsMessage>(

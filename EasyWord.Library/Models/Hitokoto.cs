@@ -11,4 +11,6 @@ public class Hitokoto
     public string FromWho { get; set; } = string.Empty;
 
     public string Creator { get; set; } = string.Empty;
+
+    public string Dst { get; set; } = string.Empty;
 }
