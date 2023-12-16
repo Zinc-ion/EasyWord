@@ -21,7 +21,13 @@
                 <Spinner></Spinner>
             </h1>
         } else {
-            <h1>@_poetry</h1>
+	        <h1>@_word | @_wordTrans</h1>
+            <br/>
+	        <h3>@_sentence</h3>
+	        <h3>@_sentenceTrans</h3>
+            <br/>
+	        <h4>图片描述：@_desc</h4>
+            <h5>Tips:如果识图错误，可以将物品放到单调背景下再尝试</h5>
         }
     </div>
     <img id="image"
@@ -35,7 +41,15 @@
 
     private bool _isLoading = true;
 
-    private string _poetry = string.Empty;
+    private string _word = string.Empty;
+
+	private string _wordTrans = string.Empty;
+
+	private string _sentence = string.Empty;
+
+	private string _sentenceTrans = string.Empty;
+
+	private string _desc = string.Empty;
 
     private async Task CaptureAsync()
     {
@@ -68,16 +82,21 @@
         await _jsRuntime.InvokeVoidAsync("setImage",
             new DotNetStreamReference(new MemoryStream(bytes)), "image");
 
-        var poetry = await _recognizeWordService.RecognizeWordAsync(bytes);
+        var descWithWordAndSentence = await _recognizeWordService.RecognizeWordAsync(bytes);
         _isLoading = false;
         StateHasChanged();
 
-        if (poetry is null)
+        if (descWithWordAndSentence is null)
         {
             return;
         }
 
-        _poetry = poetry;
+	    _desc = descWithWordAndSentence.Split("\n")[0];
+        _word = descWithWordAndSentence.Split("\n")[1];
+	    _wordTrans = descWithWordAndSentence.Split("\n")[2];
+	    _sentence = descWithWordAndSentence.Split("\n")[3];
+	    _sentenceTrans = descWithWordAndSentence.Split("\n")[4];
+     
         StateHasChanged();
     }
 

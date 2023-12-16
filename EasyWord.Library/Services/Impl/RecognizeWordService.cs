@@ -26,7 +26,7 @@ public class RecognizeWordService : IRecognizeWordService
         {
             response =
                 await httpClient.PostAsync(
-                    "http://172.22.31.10:8000/home/image2Word", formData);
+                    "http://localhost:8000/home/image2Word", formData);
             response.EnsureSuccessStatusCode();
         }
         catch (Exception e)
