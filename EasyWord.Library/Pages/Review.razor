@@ -31,6 +31,27 @@
 
 <div class="shim-lg"></div>
 
+@if (_words.Count == 0)
+{
+    <div class="modal d-block position-relative" style="z-index: 2;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">复习完成</h5>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>复习已经完成，有时间就去背单词吧</p>
+                </div>
+                <div class="modal-footer">
+                    <Button Color="Color.Secondary" Text="关闭" Icon="fa-solid fa-xmark"></Button>
+                    <Button OnClick="GoTodayWord" Text="去背词" Icon="fa-solid fa-floppy-disk"></Button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 <Collapse>
     <CollapseItems>
         @foreach (var word in _words)

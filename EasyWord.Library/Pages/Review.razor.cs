@@ -68,4 +68,9 @@ public partial class Review
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(
             $"{NavigationServiceConstants.WordDetail}/{word.WordRank}");
+
+    private void GoTodayWord() =>
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.TodayWordsPage}");
+
 }

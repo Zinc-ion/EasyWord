@@ -28,12 +28,29 @@
 
 <div class="shim-lg"></div>
 
-
-
-<h5>使用  @_wordsToReading  生成</h5>
-
-
-
+@if (_words.Count == 0)
+{
+    <div class="modal d-block position-relative" style="z-index: 2;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">没有单词</h5>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>先去背一些词，在来生成吧</p>
+                </div>
+                <div class="modal-footer">
+                    <Button Color="Color.Secondary" Text="关闭" Icon="fa-solid fa-xmark"></Button>
+                    <Button OnClick="GoTodayWord" Text="去背词" Icon="fa-solid fa-floppy-disk"></Button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <h5>使用  @_wordsToReading  生成</h5>
     @if (!_isReadingAvailable)
     {
         <div @onclick="() => GenerateReading()" style="opacity: 0.7; padding-left: 18px;">
@@ -68,32 +85,34 @@
     }
 
 
-@foreach (var word in _words)
-{
-    <div>
-        <Card>
-            <BodyTemplate>
-                <div style="display: flex; align-items: center; justify-content: space-between;">
+    @foreach (var word in _words)
+    {
+        <div>
+            <Card>
+                <BodyTemplate>
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
 
-                    <div @onclick="() => OnClick(word)">
-                        <span style="font-size: 1.2em;">@word.HeadWord</span>
-                        <span style="opacity: 0.7; font-size: 1.2em;">@word.TranCN</span>
-                        <div class="shim-2xs"></div>
-                    </div>
-
-                    <div style="display: flex; align-items: center;">
-                        <div @onclick="() => addWord(word.HeadWord)" 
-                             style="margin-right: 10px; font-size: 1.2em;">
-                            <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                        <div @onclick="() => OnClick(word)">
+                            <span style="font-size: 1.2em;">@word.HeadWord</span>
+                            <span style="opacity: 0.7; font-size: 1.2em;">@word.TranCN</span>
+                            <div class="shim-2xs"></div>
                         </div>
+
+                        <div style="display: flex; align-items: center;">
+                            <div @onclick="() => addWord(word.HeadWord)"
+                                 style="margin-right: 10px; font-size: 1.2em;">
+                                <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                            </div>
+                        </div>
+
                     </div>
+                </BodyTemplate>
+            </Card>
+        </div>
 
-                </div>
-            </BodyTemplate>
-        </Card>
-    </div>
+        <div class="shim-xl"></div>
+    }
 
-    <div class="shim-xl"></div>
 }
 
 

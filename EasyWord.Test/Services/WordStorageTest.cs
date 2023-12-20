@@ -61,17 +61,7 @@ public class WordStorageTest : IDisposable
                 WordStorageConstant.Version), Times.Once);
     }
 
-    //测试GetCET4_1Async取单词
-    [Fact]
-    public async Task GetCET4_1Async_Default()
-    {
-        var wordStorage = await WordStorageHelper.GetInitializedPoetryStorage();
-        var words = await wordStorage.GetFromCET4_1Async(5,0);
-        Assert.Equal(5,words.Count());
-        await wordStorage.CloseAsync();
-    }
-
-
+    
     [Fact]
     public async Task KnowWord_default()
     {

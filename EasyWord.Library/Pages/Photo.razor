@@ -4,6 +4,33 @@
 @inject IRecognizeWordService _recognizeWordService
 @inject IJSRuntime _jsRuntime
 
+<div style="display: flex; align-items: center;">
+
+    <div style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;"></div>
+
+    <div style="
+      font-size: 20px;
+      opacity: 0.7;
+      margin-right: 20px;
+      display: flex;
+      align-items: center;">
+        拍照搜词 ——选择一张照片
+    </div>
+
+
+</div>
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
+
+
 <div class="row">
     <div class="col-auto">
         <Button OnClick="CaptureAsync">拍照</Button>

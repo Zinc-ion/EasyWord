@@ -18,6 +18,12 @@ public class Word
     [SQLite.Column("headWord")]
     public string HeadWord { get; set; }
 
+    [SQLite.Column("usphone")]
+    public string Usphone { get; set; }
+
+    [SQLite.Column("ukphone")]
+    public string Ukphone { get; set; }
+
     [SQLite.Column("tranCN")]
     public string TranCN { get; set; }
 

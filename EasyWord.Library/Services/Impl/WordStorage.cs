@@ -57,7 +57,7 @@ public class WordStorage : IWordStorage
             await using var dbAssetStream =
                 typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
             //copy流
-            await dbAssetStream.CopyToAsync(dbFileStream);
+            //await dbAssetStream.CopyToAsync(dbFileStream);
         }
         catch (Exception e)
         {
@@ -69,12 +69,6 @@ public class WordStorage : IWordStorage
         _preferenceStorage.Set(WordStorageConstant.DbVersionKey,
             WordStorageConstant.Version);
     }
-
-
-
-    //实现返回CET4_1中的take数量的未背诵单词
-    public async Task<IEnumerable<Word>> GetFromCET4_1Async(int take,int index) =>
-        await Connection.Table<Word>().Where(p => p.Status == 0).Skip(index).Take(take).ToListAsync();
 
     //获得自定义单词
     public async Task<IEnumerable<Word>> GetWordsAsync(Expression<Func<Word, bool>> where, int skip, int take) =>
@@ -90,13 +84,8 @@ public class WordStorage : IWordStorage
         return word;
     }
 
-
-
-
     //关闭数据库连接
     public async Task CloseAsync() => await Connection.CloseAsync();
-
-
 
     //已经记住单词，status赋值为-1.再不会出现在背词表中，将现在时间获取，存入数据库
     public async Task<int> KnowWord(int wordRank)

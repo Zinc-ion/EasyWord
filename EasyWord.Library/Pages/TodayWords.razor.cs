@@ -21,11 +21,13 @@ public partial class TodayWords
 
     private int totalWords = 0;
 
+    private string bookId;
+
     private Expression<Func<Word, bool>> _where = p => p.Status == 0 & p.BookId == "CET4_1";
 
     private static string nowDate = DateTime.Now.ToString("yyyy-MM-dd");
 
-    private Expression<Func<Word, bool>> _whereTodayWords = p => p.DateRecite == nowDate & p.BookId == "CET4_1";
+    //private Expression<Func<Word, bool>> _whereTodayWords = p => p.DateRecite == nowDate & p.BookId == "CET4_1";
 
     private bool soLittleWords = false;
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -34,13 +36,19 @@ public partial class TodayWords
         {
             return;
         }
-        var todayWords = await _wordStorage.GetWordsAsync(_whereTodayWords, 0, 1500);
+
+
+        /*var todayWords = await _wordStorage.GetWordsAsync(_whereTodayWords, 0, 1500);
         _todayWords.Clear();
         _todayWords.AddRange(todayWords);
         count = _words.Count;
 
         pageSize = goal - count;
-        StateHasChanged();
+        StateHasChanged();*/
+
+        bookId = _preferenceStorage.Get(WordStorageConstant.BookIdKey,"CET4_1");
+
+        _where = p => p.Status == 0 & p.BookId == bookId;
 
         var words = await _wordStorage.GetWordsAsync(_where, 0, pageSize);
         _words.Clear();
@@ -141,6 +149,10 @@ public partial class TodayWords
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(
             $"{NavigationServiceConstants.WordDetail}/{word.WordRank}");
+
+    private void GoGenerateReading() =>
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.Reading}");
 }
 
 /*<div class="d-flex align-items-center">

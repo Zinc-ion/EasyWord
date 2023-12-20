@@ -3,6 +3,31 @@
 @inject INavigationService _navigationService
 @inject IWordStorage _wordStorage
 
+<div style="display: flex; align-items: center;">
+
+    <div style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;"></div>
+
+    <div style="
+      font-size: 20px;
+      opacity: 0.7;
+      margin-right: 20px;
+      display: flex;
+      align-items: center;">
+        多样化词库 ——多种词库供你背诵
+    </div>
+
+
+</div>
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
 
 <Row ItemsPerRow="ItemsPerRow.Four">
 
@@ -10,7 +35,7 @@
         <BodyTemplate>
             <h5 class="card-title">CET4上册</h5>
             <p class="card-text">CET4(College English Test Band 4)是大学英语四级考试的简称,是测试大学生英语能力的一个标准化考试。</p>
-            <Button Size="Size.Small" OnClick='() => GoToWordsList("CET4_1")' Color="Color.Primary">开始学习</Button>
+            <Button Size="Size.Small" OnClick='() => StudyBookId("CET4_1")' Color="Color.Primary">开始学习</Button>
         </BodyTemplate>
     </Card>
     <Card>
@@ -24,27 +49,28 @@
         <BodyTemplate>
             <h5 class="card-title">CET6上册</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <Button Size="Size.Small" OnClick='() => StudyBookId("CET6_1")' Color="Color.Primary">开始学习</Button>
         </BodyTemplate>
     </Card>
     <Card>
         <BodyTemplate>
             <h5 class="card-title">CET6下册</h5>
             <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <Button Size="Size.Small" OnClick='() => StudyBookId("CET6_3")' Color="Color.Primary">开始学习</Button>
         </BodyTemplate>
     </Card>
 </Row>
 
 @code
 {
-    public void GoToWordsList(string bookId)
+    public void GoToTodayWords()
     {
-        _navigationService.NavigateTo("/wordsList/{bookId}");
+        _navigationService.NavigateTo(NavigationServiceConstants.TodayWordsPage);
     }
 
     public void StudyBookId(string bookId)
     {
         _wordStorage.SetBookId(bookId);
+        GoToTodayWords();
     }
 }
