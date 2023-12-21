@@ -3,21 +3,102 @@
 @inject INavigationService _navigationService
 @inject IWordStorage _wordStorage
 @inject ToastService ToastService
+@inject ITTSService _tTSService
+
+<div style="display: flex; align-items: center;">
+
+    <div style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;"></div>
+
+    <div style="
+      font-size: 20px;
+      opacity: 0.7;
+      margin-right: 20px;
+      display: flex;
+      align-items: center;">
+        单词复习
+    </div>
+
+
+</div>
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
+
+@if (_words.Count == 0)
+{
+    <div class="modal d-block position-relative" style="z-index: 2;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">复习完成</h5>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>复习已经完成，有时间就去背单词吧</p>
+                </div>
+                <div class="modal-footer">
+                    <Button Color="Color.Secondary" Text="关闭" Icon="fa-solid fa-xmark"></Button>
+                    <Button OnClick="GoTodayWord" Text="去背词" Icon="fa-solid fa-floppy-disk"></Button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <Collapse>
     <CollapseItems>
         @foreach (var word in _words)
         {
             <CollapseItem Text=@word.HeadWord>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+
+                    <div @onclick="() => OnClick(word)">
+                        <span style="opacity: 0.7; font-size: 1.2em;">@word.Pos</span>
+                        <span style="opacity: 0.7; font-size: 1.2em;">@word.TranCN</span>
+                        <div class="shim-2xs"></div>
+                    </div>
+
+                    <div style="display: flex; align-items: center;">
+                        <div @onclick="() => KnowWord(word.WordRank)" 
+                             style="margin-right: 10px; font-size: 1.2em;">
+                            <i class="fa-solid fa-check" aria-hidden="true"></i>
+                        </div>
+
+                        <div @onclick="() => ReviewNextTime(word.WordRank)"
+                             style="margin-right: 10px; font-size: 1.2em;">
+                            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                        </div>
+
+                        <div @onclick="() => ToSpeech(word.HeadWord)"  
+                             style="font-size: 1.2em;">
+                            <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                </div>
+
+            </CollapseItem>
+
+            <CollapseItem Text=@word.HeadWord>
                 <div @onclick="() => OnClick(word)">
                     <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>
                     <div class="shim-2xs"></div>
+                    上次复习时间: @word.DateLastReviewed
+                    <div class="shim-2xs"></div>
                     @word.TranCN @word.Pos
                     <div class="shim-2xs"></div>
-                    <div class="btn-group" role="group">
-                        <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
-                        <Button Size="Size.Small" OnClick="() => ReviewNextTime(word.WordRank)" Color="Color.Primary">下次复习</Button>
-                    </div>
+
+                </div>
+                <div class="btn-group" role="group">
+                    <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
+                    <Button Size="Size.Small" OnClick="() => ReviewNextTime(word.WordRank)" Color="Color.Primary">下次复习</Button>
                 </div>
             </CollapseItem>
         }

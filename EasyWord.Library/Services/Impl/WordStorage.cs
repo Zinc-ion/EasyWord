@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using EasyWord.Library.Models;
 using SQLite;
 using System;
+using Microsoft.VisualBasic;
 
 namespace EasyWord.Library.Services.Impl;
 
@@ -29,6 +30,13 @@ public class WordStorage : IWordStorage
         _preferenceStorage = preferenceStorage;
     }
 
+    //存书名
+    public async Task SetBookId(string bookId) => 
+        _preferenceStorage.Set(WordStorageConstant.BookIdKey, bookId);
+
+    //获取键值存储中的书名
+    public string bookId => _preferenceStorage.Get(WordStorageConstant.BookIdKey, "CET_4");
+
     // TestIsInitialized xj实现
     public bool IsInitialized =>
         _preferenceStorage.Get(WordStorageConstant.DbVersionKey, 0) ==
@@ -38,24 +46,29 @@ public class WordStorage : IWordStorage
     //异步初始化数据库 xj实现
     public async Task InitializeAsync()
     {
-        //打开文件流
-        await using var dbFileStream =
-            new FileStream(WordDbPath, FileMode.OpenOrCreate);
-        //打开资源流
-        await using var dbAssetStream =
-            typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
-        //copy流
-        await dbAssetStream.CopyToAsync(dbFileStream);
+        
+        //TODO web端现在会出现初始化时找不到资源流的问题
+        try
+        {
+            //打开文件流
+            await using var dbFileStream =
+                new FileStream(WordDbPath, FileMode.OpenOrCreate);
+            //打开资源流
+            await using var dbAssetStream =
+                typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
+            //copy流
+            //await dbAssetStream.CopyToAsync(dbFileStream);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
 
         //存储版本号
         _preferenceStorage.Set(WordStorageConstant.DbVersionKey,
             WordStorageConstant.Version);
     }
-
-
-    //实现返回CET4_1中的take数量的未背诵单词
-    public async Task<IEnumerable<Word>> GetFromCET4_1Async(int take,int index) =>
-        await Connection.Table<Word>().Where(p => p.Status == 0).Skip(index).Take(take).ToListAsync();
 
     //获得自定义单词
     public async Task<IEnumerable<Word>> GetWordsAsync(Expression<Func<Word, bool>> where, int skip, int take) =>
@@ -71,13 +84,8 @@ public class WordStorage : IWordStorage
         return word;
     }
 
-
-
-
     //关闭数据库连接
     public async Task CloseAsync() => await Connection.CloseAsync();
-
-
 
     //已经记住单词，status赋值为-1.再不会出现在背词表中，将现在时间获取，存入数据库
     public async Task<int> KnowWord(int wordRank)
@@ -116,7 +124,6 @@ public class WordStorage : IWordStorage
             //将复习状态变为10，每复习一次就减1减到0就将其变为-1，不再显示
             word.Status = 10;
             word.DateLastReviewed = now;
-
             // 计算下次复习时间
             DateTime nextReview = DateTime.Now;
             int interval = (10 - word.Status + 1) * 10; // 间隔小时数
@@ -170,7 +177,7 @@ public class WordStorage : IWordStorage
         DateTime now = DateTime.Now;
 
         Expression<Func<Word, bool>> where;
-        var words  = await Connection.Table<Word>().Where(p => true).ToListAsync();
+        var words  = await Connection.Table<Word>().Where(p => p.Status != -1).ToListAsync();
 
         // 数据处理
         var wordsToReview = new List<Word>();
@@ -190,6 +197,7 @@ public class WordStorage : IWordStorage
         return wordsToReview;
     }
 
+
 }
 
 //数据库相关常量，防止直接拼写打错字 xj实现
@@ -200,5 +208,7 @@ public static class WordStorageConstant
     // nameof(WordStorageConstant) -> "WordStorageConstant"
     // "WordStorageConstant.DbVersionKey"
 
+    public const string BookIdKey =
+        nameof(WordStorageConstant) + "." + nameof(BookIdKey);
     public const int Version = 1;
 }

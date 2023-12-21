@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
 using Microsoft.VisualBasic.CompilerServices;
+using BootstrapBlazor.Components;
 
 namespace EasyWord.Library.Pages;
 
@@ -55,5 +56,66 @@ public partial class WordDetail
         _isLoadingSentence = false;
         StateHasChanged();
     }
+
+
+    //单词发音
+    private bool Start { get; set; }
+
+    private async Task ToSpeech(string word)
+    {
+        if (!string.IsNullOrEmpty(word))
+        {
+            SpeechOn();
+            if (await _tTSService.ToSpeechAsync(word))
+            {
+                await Task.Delay(2500);
+                SpeechOff();
+            }
+        }
+    }
+
+    private void SpeechOn()
+    {
+        Start = true;
+        StateHasChanged();
+    }
+
+    private void SpeechOff()
+    {
+        Start = false;
+        StateHasChanged();
+    }
+
+    //例句发音
+    private bool Start2 { get; set; }
+
+    private async Task SentenceToSpeech(string sentence)
+    {
+        var enSentence = sentence.Split("/n")[0];
+        if (!string.IsNullOrEmpty(enSentence))
+        {
+            SentenceSpeechOn();
+            if (await _tTSService.ToSpeechAsync(enSentence))
+            {
+                await Task.Delay(8000);
+                SentenceSpeechOff();
+            }
+        }
+    }
+
+    private void SentenceSpeechOn()
+    {
+        Start2 = true;
+        StateHasChanged();
+    }
+
+    private void SentenceSpeechOff()
+    {
+        Start2 = false;
+        StateHasChanged();
+    }
+
+
+
 
 }

@@ -1,0 +1,115 @@
+﻿@page "/yiYan"
+@using EasyWord.Library.Models
+@using System.Runtime.InteropServices.ComTypes
+@inject IYiYanService _YiYanService
+
+
+<div style="display: flex; align-items: center;">
+    <div
+        style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;
+    "
+    ></div>
+
+    <div
+        style="
+      font-size: 20px;
+      opacity: 0.7;
+      margin-right: 20px; 
+      display: flex;
+      align-items: center;
+    "
+    >
+        一言    ——寻找属于你的一言
+    </div>
+</div>
+
+<div>
+    <div class="shim-xl"></div>
+
+    推荐自
+
+    <a
+        href="https://developer.hitokoto.cn/"
+        target="_blank"
+    >
+        一言开发者中心
+    </a>
+</div>
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
+
+
+@if (_isHititokoLoading)
+{
+    <div>
+        <Spinner></Spinner>
+    </div>
+}
+else
+{
+    <div>
+        <div class="card">
+            <div class="card-header">
+                <span class="card-type">类型：@_article.Type</span>
+            </div>
+            <div class="card-body">
+                <h5 class="card-text">
+                    @_article.Text
+                </h5>
+                <h5 class="card-text">
+                    @_article.Dst
+                </h5>
+                <div class="source">
+                    来自 <span style="color: #0078d4"> @_article.Creator</span> 
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+
+
+
+
+
+@code
+{
+    private bool _isHititokoLoading = true;
+    private bool _isHititokoAvailable = false;
+
+    private Hitokoto _article = new Hitokoto();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+        {
+            return;
+        }
+        await GetHitikotoAsync();
+        StateHasChanged();
+    }
+
+
+
+
+    public async Task<Hitokoto> GetHitikotoAsync()
+    {
+        _isHititokoLoading = true;
+
+        _article = await _YiYanService.GetHitikotoAsync();
+
+        _isHititokoAvailable = true;
+        _isHititokoLoading = false;
+        return _article;
+    }
+}

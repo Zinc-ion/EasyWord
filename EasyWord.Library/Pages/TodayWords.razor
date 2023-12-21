@@ -2,35 +2,91 @@
 @inject INavigationService _navigationService
 @inject IWordStorage _wordStorage
 @inject ToastService ToastService
+@inject ITTSService _tTSService
+@inject IPreferenceStorage _preferenceStorage
 
-<div class="d-flex align-items-center">
+<div style="display: flex; align-items: center;">
 
-    <button class="btn btn-primary" @onclick="DecrementPageSize">-</button>
+    <div style="
+      width: 2px;
+      height: 40px;
+      background-color: blue;
+      margin-right: 10px;"></div>
 
-    <h5 class="m-2" role="status">我今日还要背: </h5>
-    <h3>@pageSize</h3>
-    <h5 class="m-2" role="status"> 个单词</h5>
+    <div style="
+      font-size: 20px; 
+      opacity: 0.7;  
+      margin-right: 20px;
+      display: flex;
+      align-items: center;">目标学习  ——来自 @bookId</div>
 
-    <button class="btn btn-primary" @onclick="IncrementPageSize">+</button>
+    <div style="
+      font-size: 20px;
+      display: flex; 
+      align-items: center">共 @goal 词</div>
 
-    <Button Size="Size.Small" OnClick="() => GenerateReading()" Color="Color.Success">生成阅读</Button>
 </div>
+
+<div class="shim-lg"></div>
+
+<div style="border-bottom: 1px solid rgba(0,0,0,0.2);"></div>
+
+<div class="shim-lg"></div>
+
+@if (_words.Count == 0)
+{
+    <div class="modal d-block position-relative" style="z-index: 2;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">复习完成</h5>
+                    <button type="button" class="btn-close" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>目标单词已经背完，去生成阅读加强记忆吧！</p>
+                </div>
+                <div class="modal-footer">
+                    <Button Color="Color.Secondary" Text="关闭" Icon="fa-solid fa-xmark"></Button>
+                    <Button OnClick="GoGenerateReading" Text="去生成" Icon="fa-solid fa-floppy-disk"></Button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 
 <Collapse>
     <CollapseItems>
     @foreach (var word in _words)
     {
-        <CollapseItem Text=@word.HeadWord >
-            <div @onclick="() => OnClick(word)">
-                <span style="font-weight: bold; color: #0078d4">@word.HeadWord</span>
+        <CollapseItem Text=@word.HeadWord>
+            <div style="display: flex; align-items: center; justify-content: space-between;">
 
-                @word.TranCN @word.Pos
-                <div class="shim-2xs"></div>
+                <div @onclick="() => OnClick(word)">
+                    <span style="opacity: 0.7; font-size: 1.2em;">@word.Pos</span>
+                    <span style="opacity: 0.7; font-size: 1.2em;">@word.TranCN</span>
+                    <div class="shim-2xs"></div>
+                </div>
+
+                <div style="display: flex; align-items: center;">
+                    <div @onclick="() => KnowWord(word.WordRank)" 
+                         style="margin-right: 10px; font-size: 1.2em;">
+                        <i class="fa-solid fa-check" aria-hidden="true"></i>
+                    </div>
+
+                    <div @onclick="() => UnknownWord(word.WordRank)"
+                         style="margin-right: 10px; font-size: 1.2em;">
+                        <i class="fa-solid fa-clock" aria-hidden="true"></i>
+                    </div>
+
+                    <div @onclick="() => ToSpeech(word.HeadWord)"  
+                         style="font-size: 1.2em;">
+                        <i class="fa-solid fa-bullhorn" aria-hidden="true"></i>
+                    </div>
+                </div>
+
             </div>
-            <div class="btn-group" role="group">
-                <Button Size="Size.Small" OnClick="() => KnowWord(word.WordRank)" Color="Color.Success">熟练掌握</Button>
-                <Button Size="Size.Small" OnClick="() => UnknownWord(word.WordRank)" Color="Color.Primary">加入复习</Button>
-            </div>
+
         </CollapseItem>
     }
     </CollapseItems>

@@ -32,7 +32,11 @@ public partial class Review
     public async Task<int> KnowWord(int wordRank)
     {
         await _wordStorage.KnowWord(wordRank);
-
+        StateHasChanged();
+        var words = await _wordStorage.GetReviewWordsAsync();
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 
@@ -40,12 +44,33 @@ public partial class Review
     public async Task<int> ReviewNextTime(int wordRank)
     {
         await _wordStorage.ReviewWord(wordRank);
-
+        StateHasChanged();
+        var words = await _wordStorage.GetReviewWordsAsync();
+        _words.Clear();
+        _words.AddRange(words);
+        StateHasChanged();
         return 1;
     }
 
+    private async Task ToSpeech(string word)
+    {
+        if (!string.IsNullOrEmpty(word))
+        {
+
+            if (await _tTSService.ToSpeechAsync(word))
+            {
+                await Task.Delay(2500);
+
+            }
+        }
+    }
 
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(
             $"{NavigationServiceConstants.WordDetail}/{word.WordRank}");
+
+    private void GoTodayWord() =>
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.TodayWordsPage}");
+
 }

@@ -42,12 +42,13 @@ public partial class Reading
 
     private async void GenerateReading()
     {
-        _isReadingAvailable = true;
         _isLoadingReading = true;
+        _isReadingAvailable = true;
         StateHasChanged();
         //TODO 调用_GenerateSentenceService服务，生成例句
         _reading = await _generateReadingService.GenerateReadingAsync(_wordsToReading);
         _isLoadingReading = false;
+
         StateHasChanged();
     }
 
@@ -55,4 +56,8 @@ public partial class Reading
     private void OnClick(Word word) =>
         _navigationService.NavigateTo(
             $"{NavigationServiceConstants.WordDetail}/{word.WordRank}");
+
+    private void GoTodayWord() =>
+        _navigationService.NavigateTo(
+            $"{NavigationServiceConstants.TodayWordsPage}");
 }
