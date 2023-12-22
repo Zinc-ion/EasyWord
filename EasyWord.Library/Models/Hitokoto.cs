@@ -13,4 +13,6 @@ public class Hitokoto
     public string Creator { get; set; } = string.Empty;
 
     public string Dst { get; set; } = string.Empty;
+
+    public string Source { get; set; } = "YiYan";
 }
