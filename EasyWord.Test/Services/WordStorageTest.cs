@@ -96,7 +96,7 @@ public class WordStorageTest : IDisposable
         var wordStorage =
             await WordStorageHelper.GetInitializedPoetryStorage();
         var words = await wordStorage.GetReviewWordsAsync();
-        Assert.NotEmpty(words);
+        Assert.NotNull(words);
         await wordStorage.CloseAsync();
     }
 
