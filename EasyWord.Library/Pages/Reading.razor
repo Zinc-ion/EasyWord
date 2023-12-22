@@ -53,9 +53,10 @@ else
     <h5>使用  @_wordsToReading  生成</h5>
     @if (!_isReadingAvailable)
     {
-        <div @onclick="() => GenerateReading()" style="opacity: 0.7; padding-left: 18px;">
-            <div style="display: inline-block; font-size: 1.1em;">点击生成</div>
+        <div @onclick="() => GenerateReading()" style="opacity: 0.7;">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Primary">生成阅读</Button></div>
         </div>
+
         <div class="shim-2xs"></div>
 
     }
@@ -76,7 +77,10 @@ else
                     </div>
                     <div class="card-body">
                         <p class="card-text">
-                            @_reading
+                            @_paragraph[0]
+                        </p>
+                        <p class="card-text">
+                            @_paragraph[1]
                         </p>
                     </div>
                 </div>
@@ -84,6 +88,7 @@ else
         }
     }
 
+    <div class="shim-2xs"></div>
 
     @foreach (var word in _words)
     {

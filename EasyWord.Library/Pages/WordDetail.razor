@@ -80,8 +80,8 @@
 
     if (!_isSentenceAvailable)
     {
-        <div @onclick="() => GenerateSentence(_word.HeadWord)" style="opacity: 0.7; padding-left: 5px;">
-            <div style="display: inline-block; font-size: 1.1em;">生成例句</div>
+        <div @onclick="() => GenerateSentence(_word.HeadWord)" style="opacity: 0.7;">
+            <div class="col-6 col-sm-4 col-md-3 col-lg-auto"><Button Color="Color.Primary">生成例句</Button></div>
         </div>
     }
     else
@@ -97,7 +97,7 @@
             <div>
                 <div class="card">
                     <div class="card-header">
-                        <span class="card-type">AI生成例句</span>
+                        <span class="card-type">AI生成例句</span> &nbsp; &nbsp;
                         <div @onclick="() => SentenceToSpeech(_sentence)">
                             <i class="fa-solid fa-bullhorn"></i>
                         </div>
@@ -112,7 +112,26 @@
         }
     }
 
+    <div class="shim-lg"></div>
 
-   
+
+    <div>
+        <div class="card">
+            <div class="card-header">
+                <span class="card-type">例句</span> &nbsp; &nbsp;
+                <div @onclick="() => SentenceToSpeech(_word.Sentence)">
+                    <i class="fa-solid fa-bullhorn"></i>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text">
+                    @_word.Sentence
+                </p>
+                <p class="card-text">
+                    @_word.SentenceCN
+                </p>
+            </div>
+        </div>
+    </div>
 
 }

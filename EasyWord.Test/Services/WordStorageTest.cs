@@ -81,15 +81,6 @@ public class WordStorageTest : IDisposable
     }
 
 
-
-    // GetWordsAsync(
-        //Expression<Func<Word, bool>> where, int skip, int take);
-
-    //查找单个单词
-   // Task<Word> GetWordAsync(int wordRank);
-
-
-
     [Fact]
     public async Task ReviewWord()
     {

@@ -27,6 +27,12 @@ public class Word
     [SQLite.Column("tranCN")]
     public string TranCN { get; set; }
 
+    [SQLite.Column("sentenceCN")]
+    public string SentenceCN { get; set; }
+
+    [SQLite.Column("sentence")]
+    public string Sentence { get; set; }
+
     [SQLite.Column("pos")]
     public string Pos { get; set; }
 

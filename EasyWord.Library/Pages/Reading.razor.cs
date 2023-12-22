@@ -1,6 +1,7 @@
 ﻿using EasyWord.Library.Models;
 using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
+using BootstrapBlazor.Components;
 using EasyWord.Library.Services;
 
 namespace EasyWord.Library.Pages;
@@ -21,6 +22,7 @@ public partial class Reading
 
     private Expression<Func<Word, bool>> _where = p => p.DateRecite == nowDate;
 
+    private string[] _paragraph;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -47,6 +49,7 @@ public partial class Reading
         StateHasChanged();
         //TODO 调用_GenerateSentenceService服务，生成例句
         _reading = await _generateReadingService.GenerateReadingAsync(_wordsToReading);
+         _paragraph = _reading.Split("\n\n");
         _isLoadingReading = false;
 
         StateHasChanged();

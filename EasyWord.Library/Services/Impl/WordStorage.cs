@@ -57,7 +57,7 @@ public class WordStorage : IWordStorage
             await using var dbAssetStream =
                 typeof(WordStorage).Assembly.GetManifestResourceStream(DbName);
             //copy流
-            //await dbAssetStream.CopyToAsync(dbFileStream);
+            await dbAssetStream.CopyToAsync(dbFileStream);
         }
         catch (Exception e)
         {
