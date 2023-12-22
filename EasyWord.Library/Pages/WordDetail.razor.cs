@@ -87,8 +87,6 @@ public partial class WordDetail
     }
 
     //例句发音
-    private bool Start2 { get; set; }
-
     private async Task SentenceToSpeech(string sentence)
     {
         var enSentence = sentence.Split("/n")[0];
@@ -105,13 +103,13 @@ public partial class WordDetail
 
     private void SentenceSpeechOn()
     {
-        Start2 = true;
+        Start = true;
         StateHasChanged();
     }
 
     private void SentenceSpeechOff()
     {
-        Start2 = false;
+        Start = false;
         StateHasChanged();
     }
 
