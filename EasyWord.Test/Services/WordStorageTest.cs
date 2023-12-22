@@ -94,7 +94,7 @@ public class WordStorageTest : IDisposable
     public async Task ReviewWord()
     {
         var wordStorage = await WordStorageHelper.GetInitializedPoetryStorage();
-        var result = await wordStorage.ReviewWord(5);
+        var result = await wordStorage.ReviewWord(2);
         Assert.Equal(1, result);
         await wordStorage.CloseAsync();
     }

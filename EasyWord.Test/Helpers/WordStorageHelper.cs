@@ -19,4 +19,6 @@ public class WordStorageHelper {
         await poetryStorage.InitializeAsync();
         return poetryStorage;
     }
+
+    public static async void 
 }
