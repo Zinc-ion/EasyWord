@@ -109,8 +109,19 @@
 	                    <p class="card-text">
 		                    @_sentence
 	                    </p>
-	                    <br/>
-	                    <ImageViewer Url="@_image" FitMode="ObjectFitMode.Fill" />
+                        @if (_isLoadingImage)
+	                    {
+		                    <div>
+			                    <Spinner></Spinner>
+		                    </div>
+		                    
+	                    }
+                        else
+                        {
+	                        <br/>
+	                        <ImageViewer Url="@_image" FitMode="ObjectFitMode.Fill" />
+                        }
+	                    
                     </div>
                 </div>
             </div>

@@ -21,6 +21,8 @@ public partial class WordDetail
 
     private bool _isLoadingSentence = false;
 
+    private bool _isLoadingImage = false;
+
     private string _sentence = "";
 
     private string _image = "";
@@ -57,8 +59,7 @@ public partial class WordDetail
         StateHasChanged();
         //TODO 调用_GenerateSentenceService服务，生成例句
         _sentence = await _generateSentenceService.GenerateSentenceAsync(headWord);
-        //不结束等待圈，等图片出来再结束
-        // _isLoadingSentence = false;
+         _isLoadingSentence = false;
         StateHasChanged();
         GenerateImage(_sentence);
     }
@@ -66,11 +67,13 @@ public partial class WordDetail
     //生成图片
     private async void GenerateImage(string sentence)
     {
+        _isLoadingImage = true;
+        StateHasChanged();
         var base64 = "data:image/jpeg;base64," + await _generateImageService.GenerateImageAsync(sentence);
         _image = base64;
         // await _jsRuntime.InvokeVoidAsync("setImage",
         //     new DotNetStreamReference(new MemoryStream(imageBytes)), "image");
-        _isLoadingSentence = false;
+        _isLoadingImage = false;
         StateHasChanged();
     }
 
@@ -112,7 +115,7 @@ public partial class WordDetail
             SentenceSpeechOn();
             if (await _tTSService.ToSpeechAsync(enSentence))
             {
-                await Task.Delay(6000);
+                await Task.Delay(6700);
                 SentenceSpeechOff();
             }
         }
