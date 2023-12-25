@@ -68,7 +68,7 @@ public partial class WordDetail
             SpeechOn();
             if (await _tTSService.ToSpeechAsync(word))
             {
-                await Task.Delay(2500);
+                await Task.Delay(2200);
                 SpeechOff();
             }
         }
@@ -95,7 +95,7 @@ public partial class WordDetail
             SentenceSpeechOn();
             if (await _tTSService.ToSpeechAsync(enSentence))
             {
-                await Task.Delay(8000);
+                await Task.Delay(6000);
                 SentenceSpeechOff();
             }
         }
