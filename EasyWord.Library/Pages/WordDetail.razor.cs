@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
 using Microsoft.VisualBasic.CompilerServices;
 using BootstrapBlazor.Components;
+using Microsoft.JSInterop;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EasyWord.Library.Pages;
 
@@ -20,6 +22,8 @@ public partial class WordDetail
     private bool _isLoadingSentence = false;
 
     private string _sentence = "";
+
+    private string _image = "";
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (!firstRender)
@@ -53,6 +57,19 @@ public partial class WordDetail
         StateHasChanged();
         //TODO 调用_GenerateSentenceService服务，生成例句
         _sentence = await _generateSentenceService.GenerateSentenceAsync(headWord);
+        //不结束等待圈，等图片出来再结束
+        // _isLoadingSentence = false;
+        StateHasChanged();
+        GenerateImage(_sentence);
+    }
+
+    //生成图片
+    private async void GenerateImage(string sentence)
+    {
+        var base64 = "data:image/jpeg;base64," + await _generateImageService.GenerateImageAsync(sentence);
+        _image = base64;
+        // await _jsRuntime.InvokeVoidAsync("setImage",
+        //     new DotNetStreamReference(new MemoryStream(imageBytes)), "image");
         _isLoadingSentence = false;
         StateHasChanged();
     }

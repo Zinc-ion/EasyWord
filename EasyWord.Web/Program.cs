@@ -23,6 +23,7 @@ builder.Services.AddScoped<IAlertService, AlertService>();
 builder.Services.AddScoped<IGenerateSentenceService, GenerateSentenceService>();
 builder.Services.AddScoped<IGenerateReadingService, GenerateReadingService>();
 builder.Services.AddScoped<IRecognizeWordService, RecognizeWordService>();
+builder.Services.AddScoped<IGenerateImageService, GenerateImageService>();
 
 var app = builder.Build();
 

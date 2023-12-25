@@ -2,5 +2,5 @@
 
 public interface IGenerateImageService
 {
-    Task<byte[]> GenerateImageAsync(string headWord);
+    Task<string> GenerateImageAsync(string headWord);
 }

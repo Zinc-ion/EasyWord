@@ -1,7 +1,10 @@
 ﻿@page "/wordDetail/{wordRank}"
+@using Microsoft.JSInterop
 @inject IWordStorage _wordStorage
 @inject IGenerateSentenceService _generateSentenceService
 @inject ITTSService _tTSService
+@inject IGenerateImageService _generateImageService
+@inject IJSRuntime _jsRuntime
 
 <div style="display: flex; align-items: center;">
 
@@ -103,9 +106,11 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
-                            @_sentence
-                        </p>
+	                    <p class="card-text">
+		                    @_sentence
+	                    </p>
+	                    <br/>
+	                    <ImageViewer Url="@_image" FitMode="ObjectFitMode.Fill" />
                     </div>
                 </div>
             </div>
