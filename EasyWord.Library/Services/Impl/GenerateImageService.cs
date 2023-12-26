@@ -28,7 +28,7 @@ public class GenerateImageService : IGenerateImageService
         {
             response =
                 await httpClient.PostAsync(
-                    "http://localhost:8000/home/text2Image?command=" + headWord.Split("\n")[1], null);
+                    "http://172.22.19.122:8000/home/text2Image?command=" + headWord.Split("\n")[1], null);
             response.EnsureSuccessStatusCode();
         }
         catch (Exception e)

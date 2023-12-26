@@ -76,12 +76,12 @@ else
                         <span class="card-type">AI生成阅读</span>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
-                            @_paragraph[0]
-                        </p>
-                        <p class="card-text">
-                            @_paragraph[1]
-                        </p>
+                        @foreach (var paragraph in _paragraph)
+                        {
+                            <p class="card-text">
+                                @paragraph
+                            </p>
+                        }
                     </div>
                 </div>
             </div>
