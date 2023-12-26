@@ -75,17 +75,14 @@ else
                     <div class="card-header">
                         <span class="card-type">AI生成阅读</span>
                     </div>
-	                <div class="card-body">
-		                @* <p class="card-text"> *@
-                  @*           @(new MarkupString(_reading.Replace(Environment.NewLine, "<br />"))) *@
-		                @* </p> *@
-		                <p class="card-text">
-			                @_paragraph[0]
-		                </p>
-		                <p class="card-text">
-			                @_paragraph[1]
-		                </p>
-	                </div>
+                    <div class="card-body">
+                        @foreach (var paragraph in _paragraph)
+                        {
+                            <p class="card-text">
+                                @paragraph
+                            </p>
+                        }
+                    </div>
                 </div>
             </div>
         }

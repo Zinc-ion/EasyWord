@@ -49,9 +49,11 @@ public partial class Reading
         StateHasChanged();
         //TODO 调用_GenerateSentenceService服务，生成例句
         _reading = await _generateReadingService.GenerateReadingAsync(_wordsToReading);
-         _paragraph = _reading.Split("\n\n");
+        if (_reading != null)
+        {
+            _paragraph = _reading.Split("\n\n");
+        }
         _isLoadingReading = false;
-
         StateHasChanged();
     }
 
