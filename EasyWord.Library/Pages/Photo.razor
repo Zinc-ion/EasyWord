@@ -86,7 +86,7 @@
             return;
         }
 
-        await PoetrilizeAsync(bytes);
+        await RecognizeAsync(bytes);
     }
 
     private async Task PickAsync()
@@ -97,10 +97,10 @@
             return;
         }
 
-        await PoetrilizeAsync(bytes);
+        await RecognizeAsync(bytes);
     }
 
-    private async Task PoetrilizeAsync(byte[] bytes)
+    private async Task RecognizeAsync(byte[] bytes)
     {
         _isPhotoAvailable = true;
         _isLoading = true;
